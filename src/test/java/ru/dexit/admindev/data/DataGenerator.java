@@ -15,12 +15,12 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class DataGenerator {
     static Faker faker = new Faker();
-    static final String engLettersLowerCase = "abcdefghijklmnopqrstuvwxyz";
-    static final String engLettersUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    static final String engLetters = engLettersLowerCase + engLettersUpperCase;
-    static final String rusLettersLowerCase = "абвгдежзийклмнопрстуфхцчшщыьэюя";
-    static final String rusLettersUpperCase = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЫЬЭЮЯ";
-    static final String rusLetters = rusLettersLowerCase + rusLettersUpperCase;
+    public static final String engLettersLowerCase = "abcdefghijklmnopqrstuvwxyz";
+    public static final String engLettersUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String engLetters = engLettersLowerCase + engLettersUpperCase;
+    public static final String rusLettersLowerCase = "абвгдежзийклмнопрстуфхцчшщыьэюя";
+    public static final String rusLettersUpperCase = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЫЬЭЮЯ";
+    public static final String rusLetters = rusLettersLowerCase + rusLettersUpperCase;
 
     public static AddEmployeeRequestModel getRandomAddEmployeeRequestModel(){
 
