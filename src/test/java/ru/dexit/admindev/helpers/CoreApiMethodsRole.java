@@ -48,4 +48,12 @@ public class CoreApiMethodsRole extends TestBase {
                 .andReturn();
     }
 
+    @Step("Получение данных через протокол oData")
+    public static Response getODataRole(){
+
+        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+                .get("/odata/Role")
+                .andReturn();
+    }
+
 }

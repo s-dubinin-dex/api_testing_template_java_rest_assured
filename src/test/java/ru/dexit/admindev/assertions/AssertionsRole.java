@@ -1,16 +1,9 @@
 package ru.dexit.admindev.assertions;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import ru.dexit.admindev.models.Role.AddRoleRequestModel;
-import ru.dexit.admindev.models.Role.GetPoliciesResponseModel;
-import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
-import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
+import ru.dexit.admindev.models.Role.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -73,21 +66,31 @@ public class AssertionsRole {
 
     }
 
-    public static void policiesGotSuccessfully(Response response) throws FileNotFoundException {
-
-//        GetPoliciesResponseModel[] responseBody = response.as(GetPoliciesResponseModel[].class);
-//
-//        Gson gson = new Gson();
-//        JsonReader jsonReader = new JsonReader(new FileReader("src/test/resources/jsonModels/getPoliciesEtalon.json"));
-//        GetPoliciesResponseModel[] etalonPolicies = gson.fromJson(jsonReader, GetPoliciesResponseModel[].class);
+    public static void policiesGotSuccessfully(Response response) {
 
         // Check status code
 
         assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
 
         // Check response body
-        // TODO:
-//        assertArrayEquals(etalonPolicies ,responseBody, "Response body is not equal to valid response body");
+
+        List<GetPoliciesResponseModel> responseBody = response.jsonPath().get();
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+
+    }
+
+    public static void oDataRoleReturnsData(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
+
+        // Check response body
+
+        List<ODataRoleResponseModel> responseBody = response.jsonPath().get("value");
 
         // Check response time
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");

@@ -181,5 +181,17 @@ public class CommonPositiveTests extends TestBase{
     }
 
 
+    @Test
+    @Feature("Role")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Запрос данных через протокол OData")
+    @Description("Тест запрашивает данные через протокол oData")
+    public void testGetODataRole() {
+
+        Response response = CoreApiMethodsRole.getODataRole();
+        AssertionsRole.oDataRoleReturnsData(response);
+
+    }
 
 }
