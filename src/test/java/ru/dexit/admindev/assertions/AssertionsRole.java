@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionsRole {
-    public static void roleCreatedSuccessfully(Response response, AddRoleRequestModel requestBody){
+    public static void roleAddedSuccessfully(Response response, AddRoleRequestModel requestBody){
 
         RoleCommonResponseModel responseBody = response.as(RoleCommonResponseModel.class);
 

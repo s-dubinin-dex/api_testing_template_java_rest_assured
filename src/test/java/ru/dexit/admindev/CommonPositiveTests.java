@@ -28,11 +28,11 @@ public class CommonPositiveTests extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Создание сотрудника с валидными параметрами")
     @Description("Тест создаёт сотрудника с валидными параметрами")
-    public void testCreateValidEmployee(){
+    public void testAddEmployee(){
 
         AddEmployeeRequestModel requestBody = DataGenerator.getRandomAddEmployeeRequestModel();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
-        AssertionsEmployee.employeeCreatedSuccessfully(response, requestBody);
+        AssertionsEmployee.employeeAddedSuccessfully(response, requestBody);
 
     }
     @Feature("Employee")
@@ -41,7 +41,7 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Изменение сотрудника валидными параметрами")
     @Description("Тест изменяет сотрудника валидными параметрами")
     @Test
-    public void testUpdateValidEmployee(){
+    public void testUpdateEmployee(){
 
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
@@ -71,7 +71,7 @@ public class CommonPositiveTests extends TestBase{
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
         Response response = CoreApiMethodsEmployee.updateInvitation(responseBodyCreation.id);
-        AssertionsEmployee.invitationCreatedSuccessfully(response, responseBodyCreation);
+        AssertionsEmployee.invitationUpdatedSuccessfully(response, responseBodyCreation);
     }
 
     @Feature("Employee")
@@ -94,7 +94,7 @@ public class CommonPositiveTests extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Удаление сотрудника с валидными данными")
     @Description("Тест удаляет сотрудника с валидными данными")
-    public void testDeleteValidEmployee(){
+    public void testDeleteEmployee(){
 
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
@@ -111,12 +111,12 @@ public class CommonPositiveTests extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Создание роли с валидными данными")
     @Description("Тест создаёт роль с валидными данными")
-    public void testCreateValidRole(){
+    public void testAddRole(){
 
         AddRoleRequestModel requestBody = DataGenerator.getRandomAddRoleRequestModel();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
-        AssertionsRole.roleCreatedSuccessfully(response, requestBody);
+        AssertionsRole.roleAddedSuccessfully(response, requestBody);
 
     }
 
@@ -126,7 +126,7 @@ public class CommonPositiveTests extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Изменение роли с валидными данными")
     @Description("Тест изменяет роль с валидными данными")
-    public void testUpdateValidRole(){
+    public void testUpdateRole(){
 
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
@@ -156,7 +156,7 @@ public class CommonPositiveTests extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Удаление роли с валидными данными")
     @Description("Тест удаляет роль с валидными данными")
-    public void testDeleteValidRole() {
+    public void testDeleteRole() {
 
         AddRoleRequestModel requestBodyForAddingRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForAddingRole = CoreApiMethodsRole.addRole(requestBodyForAddingRole);

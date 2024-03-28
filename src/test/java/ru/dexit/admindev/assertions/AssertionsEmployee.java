@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionsEmployee {
 
-    public static void employeeCreatedSuccessfully(Response response, AddEmployeeRequestModel requestBody){
+    public static void employeeAddedSuccessfully(Response response, AddEmployeeRequestModel requestBody){
 
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
 
@@ -60,7 +60,7 @@ public class AssertionsEmployee {
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
     }
 
-    public static void invitationCreatedSuccessfully(Response response, EmployeeCommonResponseModel responseBodyCreation){
+    public static void invitationUpdatedSuccessfully(Response response, EmployeeCommonResponseModel responseBodyCreation){
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
 
         // Check status code
