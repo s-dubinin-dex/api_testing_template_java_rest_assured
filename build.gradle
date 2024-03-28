@@ -36,6 +36,7 @@ dependencies {
             "org.assertj:assertj-core:3.23.1",
             "com.google.code.gson:gson:$gsonVersion",
             "com.github.javafaker:javafaker:$javaFakerVersion",
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
             "org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly(
             'org.slf4j:slf4j-simple:2.0.5',
