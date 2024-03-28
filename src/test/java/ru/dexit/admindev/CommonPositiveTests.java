@@ -16,7 +16,6 @@ import ru.dexit.admindev.models.Role.AddRoleRequestModel;
 import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
 import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,7 +172,7 @@ public class CommonPositiveTests extends TestBase{
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Получение списка полиcи")
     @Description("Тест получает список доступных полиси для настройки ролей")
-    public void testGetPolicies() throws FileNotFoundException {
+    public void testGetPolicies() {
 
         Response response = CoreApiMethodsRole.getPolicies();
         AssertionsRole.policiesGotSuccessfully(response);
