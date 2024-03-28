@@ -33,7 +33,7 @@ public class AssertionsEmployee {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
     public static void employeeUpdatedSuccessfully(Response response, UpdateEmployeeRequestModel requestBody, EmployeeCommonResponseModel responseBodyCreation){
@@ -57,7 +57,7 @@ public class AssertionsEmployee {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
     public static void invitationUpdatedSuccessfully(Response response, EmployeeCommonResponseModel responseBodyCreation){
@@ -80,7 +80,7 @@ public class AssertionsEmployee {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
 
@@ -97,7 +97,7 @@ public class AssertionsEmployee {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
     public static void employeeDeletedSuccessfully(Response response){
@@ -108,7 +108,7 @@ public class AssertionsEmployee {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
 }

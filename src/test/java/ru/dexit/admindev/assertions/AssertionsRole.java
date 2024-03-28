@@ -28,7 +28,7 @@ public class AssertionsRole {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
 
@@ -53,7 +53,7 @@ public class AssertionsRole {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
 
@@ -65,7 +65,7 @@ public class AssertionsRole {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
 
@@ -81,7 +81,7 @@ public class AssertionsRole {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
 
@@ -97,7 +97,7 @@ public class AssertionsRole {
 
         // Check response time
 
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
 }
