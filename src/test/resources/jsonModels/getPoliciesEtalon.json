@@ -1,0 +1,73 @@
+[
+    {
+        "category": "user",
+        "policies": [
+            {
+                "value": "user.read"
+            }
+        ]
+    },
+    {
+        "category": "notification",
+        "policies": [
+            {
+                "value": "notification.read"
+            },
+            {
+                "value": "notification.write"
+            }
+        ]
+    },
+    {
+        "category": "employee",
+        "policies": [
+            {
+                "value": "employee.read"
+            },
+            {
+                "value": "employee.write"
+            }
+        ]
+    },
+    {
+        "category": "role",
+        "policies": [
+            {
+                "value": "role.read"
+            },
+            {
+                "value": "role.write"
+            }
+        ]
+    },
+    {
+        "category": "reminder",
+        "policies": [
+            {
+                "value": "reminder.read"
+            },
+            {
+                "value": "reminder.write"
+            }
+        ]
+    },
+    {
+        "category": "log",
+        "policies": [
+            {
+                "value": "log.read"
+            }
+        ]
+    },
+    {
+        "category": "marketing",
+        "policies": [
+            {
+                "value": "marketing.read"
+            },
+            {
+                "value": "marketing.write"
+            }
+        ]
+    }
+]

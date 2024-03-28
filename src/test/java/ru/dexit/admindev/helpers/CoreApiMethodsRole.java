@@ -40,4 +40,12 @@ public class CoreApiMethodsRole extends TestBase {
                 .andReturn();
     }
 
+    @Step("Получение списка доступных полиси")
+    public static Response getPolicies(){
+        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+                .when()
+                .get("/Role/GetPolicies")
+                .andReturn();
+    }
+
 }
