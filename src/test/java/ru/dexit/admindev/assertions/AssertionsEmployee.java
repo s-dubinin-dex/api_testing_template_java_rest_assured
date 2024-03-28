@@ -2,6 +2,7 @@ package ru.dexit.admindev.assertions;
 
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import ru.dexit.admindev.data.UserRole;
 import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
 import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
@@ -27,7 +28,7 @@ public class AssertionsEmployee {
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
         assertEquals(requestBody.roleId, responseBody.roleId, "roleId in response is not equal to roleId in request");
-        assertEquals("Test FullWrite Role", responseBody.role, "role is not equal to Test FullWriteRole");
+        assertEquals(UserRole.findUserRoleById(requestBody.roleId).role.name, responseBody.role, "role is not equal to role in request body");
         assertEquals(requestBody.email, responseBody.email, "email in response is not equal to email in request");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
@@ -51,7 +52,7 @@ public class AssertionsEmployee {
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
         assertEquals(requestBody.roleId, responseBody.roleId, "roleId in response is not equal to roleId in request");
-        assertEquals("Test FullRead Role", responseBody.role, "role is not equal to Test FullWriteRole");
+        assertEquals(UserRole.findUserRoleById(requestBody.roleId).role.name, responseBody.role, "role is not equal to role in request body");
         assertEquals(responseBodyCreation.email, responseBody.email, "email in response is not equal to Employee email");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
@@ -74,7 +75,7 @@ public class AssertionsEmployee {
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
         assertEquals(responseBodyCreation.roleId, responseBody.roleId, "roleId in response is not equal to roleId in request");
-        assertEquals("Test FullWrite Role", responseBody.role, "role is not equal to Test FullWriteRole");
+        assertEquals(UserRole.findUserRoleById(responseBodyCreation.roleId).role.name, responseBody.role, "role is not equal to Test FullWriteRole");
         assertEquals(responseBodyCreation.email, responseBody.email, "email in response is not equal to Employee email");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
