@@ -3,12 +3,11 @@ package ru.dex_it.k3s.admin_dev.data;
 import com.github.javafaker.Faker;
 import ru.dex_it.k3s.admin_dev.models.Employee.AddEmployeeRequestModel;
 import ru.dex_it.k3s.admin_dev.models.Employee.UpdateEmployeeRequestModel;
+
 import ru.dex_it.k3s.admin_dev.models.Role.AddRoleRequestModel;
 
-import javax.management.monitor.StringMonitor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DataGenerator {
     public static AddEmployeeRequestModel getAddEmployeeRequestModel(){
@@ -33,5 +32,20 @@ public class DataGenerator {
                 .build();
 
     }
+    public static AddRoleRequestModel getAddRoleRequestModel(){
+        Faker faker = new Faker();
 
+        List<String> policies = new ArrayList<>();
+        policies.add("notification.read");
+        policies.add("employee.read");
+        policies.add("role.read");
+        policies.add("reminder.read");
+        policies.add("log.read");
+        policies.add("user.read");
+
+        return AddRoleRequestModel.builder()
+                .name(faker.company().profession())
+                .policies(policies)
+                .build();
+    }
 }

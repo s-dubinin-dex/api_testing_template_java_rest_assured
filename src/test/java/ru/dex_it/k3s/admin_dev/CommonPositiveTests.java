@@ -5,11 +5,14 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.dex_it.k3s.admin_dev.assertions.AssertionsEmployee;
+import ru.dex_it.k3s.admin_dev.assertions.AssertionsRole;
 import ru.dex_it.k3s.admin_dev.data.DataGenerator;
 import ru.dex_it.k3s.admin_dev.helpers.CoreApiMethodsEmployee;
+import ru.dex_it.k3s.admin_dev.helpers.CoreApiMethodsRole;
 import ru.dex_it.k3s.admin_dev.models.Employee.AddEmployeeRequestModel;
 import ru.dex_it.k3s.admin_dev.models.Employee.EmployeeCommonResponseModel;
 import ru.dex_it.k3s.admin_dev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dex_it.k3s.admin_dev.models.Role.AddRoleRequestModel;
 
 @DisplayName("Общие позитивные тесты. Smoke tests.")
 public class CommonPositiveTests extends TestBase{
@@ -95,6 +98,19 @@ public class CommonPositiveTests extends TestBase{
 
     }
 
+    @Test
+    @Feature("Role")
+    @Story("Создание роли")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Создание роли с валидными данными")
+    @Description("Тест создаёт роль с валидными данными")
+    public void testCreateValidRole(){
 
+        AddRoleRequestModel requestBody = DataGenerator.getAddRoleRequestModel();
+        Response response = CoreApiMethodsRole.addRole(requestBody);
+
+        AssertionsRole.roleCreatedSuccessfully(response, requestBody);
+
+    }
 
 }
