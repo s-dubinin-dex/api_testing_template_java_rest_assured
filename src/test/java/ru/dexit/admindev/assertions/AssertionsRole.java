@@ -27,6 +27,7 @@ public class AssertionsRole {
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
 
     }
@@ -51,6 +52,7 @@ public class AssertionsRole {
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
 
     }
@@ -62,6 +64,7 @@ public class AssertionsRole {
         assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
 
     }
@@ -93,8 +96,8 @@ public class AssertionsRole {
         List<ODataRoleResponseModel> responseBody = response.jsonPath().get("value");
 
         // Check response time
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
 
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
 
     }
 }

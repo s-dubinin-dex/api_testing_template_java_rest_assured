@@ -32,6 +32,7 @@ public class AssertionsEmployee {
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
     }
 
@@ -55,6 +56,7 @@ public class AssertionsEmployee {
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
     }
 
@@ -77,6 +79,7 @@ public class AssertionsEmployee {
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
     }
 
@@ -93,15 +96,18 @@ public class AssertionsEmployee {
         ///TODO: добавить проверку тела
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
     }
 
     public static void employeeDeletedSuccessfully(Response response){
+
         // Check status code
 
         assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
 
         // Check response time
+
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
 
     }
