@@ -1,11 +1,7 @@
-package ru.dex_it.k3s.admin_dev.helpers;
+package ru.dexit.admindev.helpers;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 

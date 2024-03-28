@@ -1,10 +1,10 @@
-package ru.dex_it.k3s.admin_dev.assertions;
+package ru.dexit.admindev.assertions;
 
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import ru.dex_it.k3s.admin_dev.models.Employee.AddEmployeeRequestModel;
-import ru.dex_it.k3s.admin_dev.models.Employee.EmployeeCommonResponseModel;
-import ru.dex_it.k3s.admin_dev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
+import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
 
 import java.util.concurrent.TimeUnit;
 

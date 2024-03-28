@@ -1,17 +1,17 @@
-package ru.dex_it.k3s.admin_dev.data;
+package ru.dexit.admindev.data;
 
 import com.github.javafaker.Faker;
-import ru.dex_it.k3s.admin_dev.models.Employee.AddEmployeeRequestModel;
-import ru.dex_it.k3s.admin_dev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 
-import ru.dex_it.k3s.admin_dev.models.Role.AddRoleRequestModel;
+import ru.dexit.admindev.models.Role.AddRoleRequestModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataGenerator {
-    public static AddEmployeeRequestModel getAddEmployeeRequestModel(){
-        Faker faker = new Faker();
+    static Faker faker = new Faker();
+
+    public static AddEmployeeRequestModel getRandomAddEmployeeRequestModel(){
 
         return AddEmployeeRequestModel.builder()
                 .name(faker.name().fullName())
@@ -21,19 +21,7 @@ public class DataGenerator {
 
     }
 
-    public static UpdateEmployeeRequestModel getUpdateEmployeeRequestModel(String id, String roleId){
-
-        Faker faker = new Faker();
-
-        return UpdateEmployeeRequestModel.builder()
-                .id(id)
-                .name(faker.name().fullName())
-                .roleId(roleId)
-                .build();
-
-    }
-    public static AddRoleRequestModel getAddRoleRequestModel(){
-        Faker faker = new Faker();
+    public static AddRoleRequestModel getRandomAddRoleRequestModel(){
 
         List<String> policies = new ArrayList<>();
         policies.add("notification.read");

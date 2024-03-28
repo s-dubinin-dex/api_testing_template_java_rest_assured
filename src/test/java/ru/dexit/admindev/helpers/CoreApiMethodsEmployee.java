@@ -1,11 +1,11 @@
-package ru.dex_it.k3s.admin_dev.helpers;
+package ru.dexit.admindev.helpers;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import ru.dex_it.k3s.admin_dev.TestBase;
-import ru.dex_it.k3s.admin_dev.models.Employee.AddEmployeeRequestModel;
-import ru.dex_it.k3s.admin_dev.models.Employee.UpdateEmployeeRequestModel;
-import ru.dex_it.k3s.admin_dev.spec.Specifications;
+import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.spec.Specifications;
 
 public class CoreApiMethodsEmployee extends TestBase {
     @Step("Создание сотрудника")

@@ -1,17 +1,17 @@
-package ru.dex_it.k3s.admin_dev.models.Role;
+package ru.dexit.admindev.models.Employee;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddRoleRequestModel {
+public class AddEmployeeRequestModel {
     public String name;
-    public List<String> policies;
+    public String roleId;
+    public String email;
 }

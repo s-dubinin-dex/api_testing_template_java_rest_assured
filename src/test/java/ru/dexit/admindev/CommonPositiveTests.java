@@ -1,21 +1,27 @@
-package ru.dex_it.k3s.admin_dev;
+package ru.dexit.admindev;
 
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.dex_it.k3s.admin_dev.assertions.AssertionsEmployee;
-import ru.dex_it.k3s.admin_dev.assertions.AssertionsRole;
-import ru.dex_it.k3s.admin_dev.data.DataGenerator;
-import ru.dex_it.k3s.admin_dev.helpers.CoreApiMethodsEmployee;
-import ru.dex_it.k3s.admin_dev.helpers.CoreApiMethodsRole;
-import ru.dex_it.k3s.admin_dev.models.Employee.AddEmployeeRequestModel;
-import ru.dex_it.k3s.admin_dev.models.Employee.EmployeeCommonResponseModel;
-import ru.dex_it.k3s.admin_dev.models.Employee.UpdateEmployeeRequestModel;
-import ru.dex_it.k3s.admin_dev.models.Role.AddRoleRequestModel;
+import ru.dexit.admindev.assertions.AssertionsEmployee;
+import ru.dexit.admindev.assertions.AssertionsRole;
+import ru.dexit.admindev.data.DataGenerator;
+import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
+import ru.dexit.admindev.helpers.CoreApiMethodsRole;
+import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
+import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.Role.AddRoleRequestModel;
+import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
+import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @DisplayName("Общие позитивные тесты. Smoke tests.")
 public class CommonPositiveTests extends TestBase{
+
     @Test
     @Feature("Employee")
     @Story("Создание сотрудника")
@@ -24,7 +30,7 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест создаёт сотрудника с валидными параметрами")
     public void testCreateValidEmployee(){
 
-        AddEmployeeRequestModel requestBody = DataGenerator.getAddEmployeeRequestModel();
+        AddEmployeeRequestModel requestBody = DataGenerator.getRandomAddEmployeeRequestModel();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
         AssertionsEmployee.employeeCreatedSuccessfully(response, requestBody);
 
@@ -37,15 +43,16 @@ public class CommonPositiveTests extends TestBase{
     @Test
     public void testUpdateValidEmployee(){
 
-        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getAddEmployeeRequestModel();
+        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        UpdateEmployeeRequestModel requestBody = DataGenerator.
-                getUpdateEmployeeRequestModel(
-                        responseBodyCreation.id,
-                        "d2ee530d-8384-439a-8486-3e960118084b"
-        );
+        UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
+                .id(responseBodyCreation.id)
+                .name(faker.name().fullName())
+                .roleId("d2ee530d-8384-439a-8486-3e960118084b")
+                .build();
+
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
         AssertionsEmployee.employeeUpdatedSuccessfully(response, requestBody, responseBodyCreation);
 
@@ -59,7 +66,7 @@ public class CommonPositiveTests extends TestBase{
     @Test
     public void testUpdateInvitation(){
 
-        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getAddEmployeeRequestModel();
+        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
@@ -89,7 +96,7 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест удаляет сотрудника с валидными данными")
     public void testDeleteValidEmployee(){
 
-        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getAddEmployeeRequestModel();
+        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
@@ -106,11 +113,42 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест создаёт роль с валидными данными")
     public void testCreateValidRole(){
 
-        AddRoleRequestModel requestBody = DataGenerator.getAddRoleRequestModel();
+        AddRoleRequestModel requestBody = DataGenerator.getRandomAddRoleRequestModel();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
         AssertionsRole.roleCreatedSuccessfully(response, requestBody);
 
     }
+
+    @Test
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Изменение роли с валидными данными")
+    @Description("Тест изменяет роль с валидными данными")
+    public void testUpdateValidRole(){
+
+        AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
+        RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
+
+        List<String> policies = new ArrayList<>();
+        policies.add("notification.write");
+        policies.add("employee.write");
+        policies.add("role.write");
+        policies.add("reminder.write");
+        policies.add("log.read");
+        policies.add("user.read");
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession())
+                .policies(policies)
+                .id(responseBodyAddRole.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
+    }
+
 
 }

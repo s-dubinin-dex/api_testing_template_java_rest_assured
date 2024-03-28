@@ -1,9 +1,9 @@
-package ru.dex_it.k3s.admin_dev.spec;
+package ru.dexit.admindev.spec;
 
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
-import ru.dex_it.k3s.admin_dev.TestBase;
-import ru.dex_it.k3s.admin_dev.helpers.CustomAllureListener;
+import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.helpers.CustomAllureListener;
 
 import static io.restassured.RestAssured.given;
 

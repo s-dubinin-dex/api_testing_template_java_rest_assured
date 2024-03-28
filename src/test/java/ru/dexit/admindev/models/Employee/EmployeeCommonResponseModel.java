@@ -1,4 +1,4 @@
-package ru.dex_it.k3s.admin_dev.models.Employee;
+package ru.dexit.admindev.models.Employee;
 
 public class EmployeeCommonResponseModel {
     public String id;

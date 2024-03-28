@@ -1,4 +1,4 @@
-package ru.dex_it.k3s.admin_dev.models.Employee;
+package ru.dexit.admindev.models.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

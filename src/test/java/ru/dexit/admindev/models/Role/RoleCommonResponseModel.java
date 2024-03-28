@@ -1,4 +1,4 @@
-package ru.dex_it.k3s.admin_dev.models.Role;
+package ru.dexit.admindev.models.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
