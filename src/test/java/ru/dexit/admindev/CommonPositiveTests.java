@@ -150,5 +150,20 @@ public class CommonPositiveTests extends TestBase{
         AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
     }
 
+    @Test
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Удаление роли с валидными данными")
+    @Description("Тест удаляет роль с валидными данными")
+    public void testDeleteValidRole() {
 
+        AddRoleRequestModel requestBodyForAddingRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForAddingRole = CoreApiMethodsRole.addRole(requestBodyForAddingRole);
+        RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
+
+        Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
+        AssertionsRole.roleDeletedSuccessfully(response);
+
+    }
 }

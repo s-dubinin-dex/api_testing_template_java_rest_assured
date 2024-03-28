@@ -39,6 +39,7 @@ public class AssertionsRole {
 
         Collections.sort(requestBody.policies);
         Collections.sort(responseBody.policies);
+
         // Check status code
 
         assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
@@ -53,6 +54,18 @@ public class AssertionsRole {
 
         // Check response time
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+
+    }
+
+    public static void roleDeletedSuccessfully(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
+
+        // Check response time
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
+
 
     }
 }

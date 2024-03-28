@@ -30,4 +30,14 @@ public class CoreApiMethodsRole extends TestBase {
 
     }
 
+    @Step("Удаление роли")
+    public static Response deleteRole(String id){
+
+        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+                .queryParam("id", id)
+                .when()
+                .delete("/Role/DeleteRole")
+                .andReturn();
+    }
+
 }
