@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
+import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
 import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 
@@ -24,7 +25,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId("b2a142fe-9035-46a5-bd9f-06baf40be2b0")
+                .roleId(Role.FULL_WRITE.roleUUID)
                 .email(faker.internet().emailAddress())
                 .build();
 
@@ -45,7 +46,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddEmployeeRequestModel requestBodyFirstEmployee = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId("b2a142fe-9035-46a5-bd9f-06baf40be2b0")
+                .roleId(Role.FULL_WRITE.roleUUID)
                 .email(faker.internet().emailAddress())
                 .build();
 
@@ -53,7 +54,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddEmployeeRequestModel requestBodySecondEmployee = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId("b2a142fe-9035-46a5-bd9f-06baf40be2b0")
+                .roleId(Role.FULL_WRITE.roleUUID)
                 .email(faker.internet().emailAddress())
                 .build();
 

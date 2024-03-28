@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
 import ru.dexit.admindev.assertions.AssertionsRole;
 import ru.dexit.admindev.data.DataGenerator;
+import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
 import ru.dexit.admindev.helpers.CoreApiMethodsRole;
 import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
@@ -52,7 +53,7 @@ public class CommonPositiveTests extends TestBase{
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(faker.name().fullName())
-                .roleId("d2ee530d-8384-439a-8486-3e960118084b")
+                .roleId(Role.FULL_READ.roleUUID)
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);

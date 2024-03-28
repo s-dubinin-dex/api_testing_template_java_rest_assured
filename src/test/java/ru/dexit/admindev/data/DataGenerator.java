@@ -26,7 +26,7 @@ public class DataGenerator {
 
         return AddEmployeeRequestModel.builder()
                 .name(faker.name().fullName())
-                .roleId("b2a142fe-9035-46a5-bd9f-06baf40be2b0")
+                .roleId(Role.FULL_WRITE.roleUUID)
                 .email(faker.internet().emailAddress())
                 .build();
 
