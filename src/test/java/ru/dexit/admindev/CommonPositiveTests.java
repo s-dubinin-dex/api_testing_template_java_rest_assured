@@ -19,6 +19,8 @@ import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.dexit.admindev.data.DataGenerator.*;
+
 @DisplayName("Общие позитивные тесты. Smoke tests.")
 public class CommonPositiveTests extends TestBase{
 
@@ -141,7 +143,7 @@ public class CommonPositiveTests extends TestBase{
         policies.add("user.read");
 
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
-                .name(faker.company().profession())
+                .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
                 .policies(policies)
                 .id(responseBodyAddRole.id)
                 .build();

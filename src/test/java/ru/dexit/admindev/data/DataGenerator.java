@@ -80,9 +80,9 @@ public class DataGenerator {
 
     public static Stream<Arguments> getValidRoles(){
         return Stream.of(
-                arguments(UserRole.FULL_WRITE.role.uid),
-                arguments(UserRole.FULL_READ.role.uid),
-                arguments(UserRole.NO_RIGHTS.role.uid)
+                arguments(Role.FULL_WRITE.roleUUID),
+                arguments(Role.FULL_READ.roleUUID),
+                arguments(Role.NO_RIGHTS.roleUUID)
         );
     }
 
