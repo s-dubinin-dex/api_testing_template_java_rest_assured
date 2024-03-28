@@ -24,7 +24,7 @@ public class AssertionsRole {
         assertEquals(requestBody.name, responseBody.name, "Role policies in response is not equal to role policies in request");
         assertEquals(requestBody.policies, responseBody.policies, "");
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
-        assertNull(responseBody.deletedUtc, "deletedUtc is null");
+        assertNull(responseBody.deletedUtc, "deletedUtc is not null");
 
         // Check response time
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms");
