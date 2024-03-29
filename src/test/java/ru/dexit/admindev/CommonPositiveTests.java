@@ -5,10 +5,12 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
+import ru.dexit.admindev.assertions.AssertionsIdentity;
 import ru.dexit.admindev.assertions.AssertionsRole;
 import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
+import ru.dexit.admindev.helpers.CoreApiMethodsIdentity;
 import ru.dexit.admindev.helpers.CoreApiMethodsRole;
 import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
@@ -24,6 +26,19 @@ import static ru.dexit.admindev.data.DataGenerator.*;
 
 @DisplayName("Общие позитивные тесты. Smoke tests.")
 public class CommonPositiveTests extends TestBase{
+
+    @Test
+    @Feature("Authorization")
+    @Story("Авторизация и получение токена")
+    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Авторизация и получение токена")
+    @Description("Тест проходит авторизаци и проверяет получение токена")
+    public void testAuthorizationAndGettingToken(){
+
+        Response response = CoreApiMethodsIdentity.connectToken();
+        AssertionsIdentity.authorizationSuccessfully(response);
+
+    }
 
     @Test
     @Feature("Employee")

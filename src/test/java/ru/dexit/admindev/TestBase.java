@@ -5,7 +5,9 @@ import org.junit.jupiter.api.BeforeAll;
 import ru.dexit.admindev.helpers.Authorization;
 
 public class TestBase {
-    protected final static String URL_ADMIN = "https://api-dev.k3s.dex-it.ru/admin";
+    protected final static String BASE_URL = "https://api-dev.k3s.dex-it.ru";
+    protected final static String URL_IDENTITY = BASE_URL + "/identity";
+    protected final static String URL_ADMIN = BASE_URL + "/admin";
     protected static String TOKEN;
     protected static Faker faker = new Faker();
 
