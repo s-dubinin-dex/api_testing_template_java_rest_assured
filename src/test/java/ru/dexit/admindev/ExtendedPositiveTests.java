@@ -36,7 +36,7 @@ public class ExtendedPositiveTests extends TestBase{
 
     @Epic("Employee")
     @Story("Создание сотрудника")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Создание сотрудника c существуюшим именем")
     @Description("Тест создаёт сотрудника с существуюшим именем")
     @Test
@@ -66,7 +66,7 @@ public class ExtendedPositiveTests extends TestBase{
 
     @Epic("Employee")
     @Story("Создание сотрудника")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Создание сотрудника c валидной ролью")
     @Description("Тест создаёт сотрудника с валидными ролями")
     @ParameterizedTest
@@ -86,7 +86,7 @@ public class ExtendedPositiveTests extends TestBase{
 
     @Epic("Employee")
     @Story("Создание сотрудника")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Создание сотрудника c валидным email")
     @Description("Тест создаёт сотрудника с валидными email")
     @ParameterizedTest
