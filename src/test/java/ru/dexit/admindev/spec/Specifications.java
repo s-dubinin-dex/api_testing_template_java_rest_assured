@@ -16,7 +16,7 @@ public class Specifications extends TestBase {
                 .filter(CustomAllureListener.withCustomTemplates())
                 .header("Authorization", "Bearer " + TOKEN)
                 .header("Content-Type", "application/json")
-//                .log().all()
+                .log().all()
                 ;
 
     }
