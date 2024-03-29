@@ -84,4 +84,22 @@ public class ExtendedPositiveTests extends TestBase{
 
     }
 
+    @Epic("Employee")
+    @Story("Создание сотрудника")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Создание сотрудника c валидным email")
+    @Description("Тест создаёт сотрудника с валидными email")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidEmails")
+    public void testAddEmployeeWithDifferentEmails(String email){
+            AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
+                    .name(faker.name().fullName())
+                    .roleId(Role.FULL_WRITE.roleUUID)
+                    .email(email)
+                    .build();
+
+            Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
+            AssertionsEmployee.employeeAddedSuccessfully(response, requestBody);
+    }
+
 }

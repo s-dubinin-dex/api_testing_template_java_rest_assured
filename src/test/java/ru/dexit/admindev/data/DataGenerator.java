@@ -21,6 +21,7 @@ public class DataGenerator {
     public static final String rusLettersLowerCase = "абвгдежзийклмнопрстуфхцчшщыьэюя";
     public static final String rusLettersUpperCase = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЫЬЭЮЯ";
     public static final String rusLetters = rusLettersLowerCase + rusLettersUpperCase;
+    public static final String digits = "0123456789";
 
     public static AddEmployeeRequestModel getRandomAddEmployeeRequestModel(){
 
@@ -86,6 +87,44 @@ public class DataGenerator {
         );
     }
 
+    public static Stream<Arguments> getValidEmails(){
+        String validSpecialCharactersForEmail = "!#$%&'()*+,-./:;<>?[]^_`{|}~ " + "1";
+
+        List<String> result = new ArrayList<>();
+
+        result.add(generateRandomString(rusLetters, 1) + "@" + generateRandomString(rusLetters, 1) + "." + generateRandomString(rusLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(rusLetters, 25) + "@" + generateRandomString(rusLetters, 25) + "." + generateRandomString(rusLetters, 25));
+        result.add(generateRandomString(engLetters, 25) + "@" + generateRandomString(engLetters, 25) + "." + generateRandomString(engLetters, 25));
+        result.add(generateRandomString(rusLetters, 250) + "@" + generateRandomString(rusLetters, 1) + "." + generateRandomString(rusLetters, 1));
+        result.add(generateRandomString(rusLetters, 1) + "@" + generateRandomString(rusLetters, 250) + "." + generateRandomString(rusLetters, 1));
+        result.add(generateRandomString(rusLetters, 1) + "@" + generateRandomString(rusLetters, 1) + "." + generateRandomString(rusLetters, 250));
+        result.add(generateRandomString(engLetters, 250) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 250) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 250));
+        result.add(generateRandomString(rusLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(rusLetters, 1) + "." + generateRandomString(rusLetters, 1));
+        result.add(generateRandomString(digits, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+
+        for (Character specialCharacter: validSpecialCharactersForEmail.toCharArray()){
+            result.add(generateEmailWithCharacterInUsername(specialCharacter));
+            result.add(generateEmailWithCharacterInServerName(specialCharacter));
+            result.add(generateEmailWithCharacterInDomain(specialCharacter));
+        }
+
+        return result.stream().map(Arguments::of);
+
+    }
+
+    public static String generateEmailWithCharacterInUsername(Character character){
+        return character + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1);
+    }
+    public static String generateEmailWithCharacterInServerName(Character character){
+        return generateRandomString(engLetters, 1) + "@" + character + "." + generateRandomString(engLetters, 1);
+    }
+    public static String generateEmailWithCharacterInDomain(Character character){
+        return generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + character;
+    }
 
     public static Integer generateRandomNumber() {
         Random random = new Random();

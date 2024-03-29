@@ -29,7 +29,7 @@ public class AssertionsEmployee {
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
         assertEquals(requestBody.roleId, responseBody.roleId, "roleId in response is not equal to roleId in request");
         assertEquals(Role.findRoleById(requestBody.roleId).roleName, responseBody.role, "role is not equal to role in request body");
-        assertEquals(requestBody.email, responseBody.email, "email in response is not equal to email in request");
+        assertEquals(requestBody.email.toLowerCase(), responseBody.email, "email in response is not equal to email in request");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
         // Check response time
