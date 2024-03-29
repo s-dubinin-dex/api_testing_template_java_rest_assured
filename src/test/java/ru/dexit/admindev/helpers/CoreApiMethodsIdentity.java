@@ -15,6 +15,7 @@ public class CoreApiMethodsIdentity extends TestBase {
         RestAssured.baseURI = URL_IDENTITY;
 
         return given()
+                .filter(CustomAllureListener.withCustomTemplates())
                 .formParam("client_id", "admin.client")
                 .formParam("client_secret", "9F45EA47-9BD6-48D8-B218-273A256DB093")
                 .formParam("grant_type", "password")
