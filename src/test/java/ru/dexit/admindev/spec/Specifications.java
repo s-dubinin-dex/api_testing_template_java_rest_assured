@@ -17,7 +17,6 @@ public class Specifications extends TestBase {
                 .header("Authorization", "Bearer " + TOKEN)
                 .header("Content-Type", "application/json")
 //                .log().all()
-
                 ;
 
     }
