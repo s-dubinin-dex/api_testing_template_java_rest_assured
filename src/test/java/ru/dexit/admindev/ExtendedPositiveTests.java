@@ -295,7 +295,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(Arrays.asList(policy))
+                .policies(List.of(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
@@ -314,7 +314,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(Arrays.asList(policy))
+                .policies(List.of(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 

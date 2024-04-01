@@ -123,16 +123,16 @@ public class DataGenerator {
         return result;
     }
 
-    public static Stream<Arguments> getReadPoliciesStream(){
-        return getReadPolicies().stream().map(Arguments::of);
+    public static Stream<String> getReadPoliciesStream(){
+        return getReadPolicies().stream();
     }
 
-    public static Stream<Arguments> getWritePoliciesStream(){
-        return getWritePolicies().stream().map(Arguments::of);
+    public static Stream<String> getWritePoliciesStream(){
+        return getWritePolicies().stream();
     }
 
-    public static Stream<Arguments> getAllPoliciesStream(){
-        return getAllPolicies().stream().map(Arguments::of);
+    public static Stream<String> getAllPoliciesStream(){
+        return getAllPolicies().stream();
     }
 
     public static Stream<Arguments> getValidEmails(){
