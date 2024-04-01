@@ -44,7 +44,7 @@ public class DataGenerator {
         policies.add("user.read");
 
         return AddRoleRequestModel.builder()
-                .name(faker.company().profession() + "_" + generateRandomString(engLetters, 6))
+                .name(faker.company().profession() + "_" + getSalt())
                 .policies(policies)
                 .build();
     }
@@ -84,6 +84,32 @@ public class DataGenerator {
                 arguments(Role.FULL_WRITE.roleUUID),
                 arguments(Role.FULL_READ.roleUUID),
                 arguments(Role.NO_RIGHTS.roleUUID)
+        );
+    }
+
+    public static Stream<Arguments> getValidRoleNames(){
+        return getValidEmployeeNames();
+    }
+
+    public static Stream<Arguments> getRoleReadPolicies(){
+        return Stream.of(
+                arguments(List.of("user.read")),
+                arguments(List.of("notification.read")),
+                arguments(List.of("employee.read")),
+                arguments(List.of("role.read")),
+                arguments(List.of("reminder.read")),
+                arguments(List.of("log.read")),
+                arguments(List.of("marketing.read"))
+        );
+    }
+
+    public static Stream<Arguments> getRoleWritePolicies(){
+        return Stream.of(
+                arguments(List.of("notification.write")),
+                arguments(List.of("employee.write")),
+                arguments(List.of("role.write")),
+                arguments(List.of("reminder.write")),
+                arguments(List.of("marketing.write"))
         );
     }
 
@@ -141,5 +167,9 @@ public class DataGenerator {
         }
 
         return randomString.toString();
+    }
+
+    public static String getSalt(){
+        return generateRandomString(engLetters, 6);
     }
 }
