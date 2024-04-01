@@ -7,7 +7,6 @@ import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.Role.AddRoleRequestModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -92,47 +91,26 @@ public class DataGenerator {
         return getValidEmployeeNames();
     }
 
-    public static List<String> getReadPolicies(){
-        return Arrays.asList(
-                "user.read",
-                "notification.read",
-                "employee.read",
-                "role.read",
-                "reminder.read",
-                "log.read",
-                "marketing.read"
+    public static Stream<Arguments> getRoleReadPolicies(){
+        return Stream.of(
+                arguments(List.of("user.read")),
+                arguments(List.of("notification.read")),
+                arguments(List.of("employee.read")),
+                arguments(List.of("role.read")),
+                arguments(List.of("reminder.read")),
+                arguments(List.of("log.read")),
+                arguments(List.of("marketing.read"))
         );
     }
 
-    public static List<String> getWritePolicies(){
-        return Arrays.asList(
-                "notification.write",
-                "employee.write",
-                "role.write",
-                "reminder.write",
-                "marketing.write"
+    public static Stream<Arguments> getRoleWritePolicies() {
+        return Stream.of(
+                arguments(List.of("notification.write")),
+                arguments(List.of("employee.write")),
+                arguments(List.of("role.write")),
+                arguments(List.of("reminder.write")),
+                arguments(List.of("marketing.write"))
         );
-    }
-
-    public static List<String> getAllPolicies(){
-        List<String> result = new ArrayList<>();
-
-        result.addAll(getReadPolicies());
-        result.addAll(getWritePolicies());
-
-        return result;
-    }
-
-    public static Stream<String> getReadPoliciesStream(){
-        return getReadPolicies().stream();
-    }
-
-    public static Stream<String> getWritePoliciesStream(){
-        return getWritePolicies().stream();
-    }
-
-    public static Stream<String> getAllPoliciesStream(){
-        return getAllPolicies().stream();
     }
 
     public static Stream<Arguments> getValidEmails(){
