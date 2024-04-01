@@ -5,8 +5,10 @@ import org.apache.http.HttpStatus;
 import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
+import ru.dexit.admindev.models.Employee.ODataEmployeeResponseModel;
 import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -93,8 +95,7 @@ public class AssertionsEmployee {
 
         // Check response body
 
-        assertFalse(response.toString().isEmpty(), "Response body is empty");
-        ///TODO: добавить проверку тела
+        List<ODataEmployeeResponseModel> responseData = response.jsonPath().get("value");
 
         // Check response time
 
