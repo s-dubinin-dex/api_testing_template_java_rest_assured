@@ -36,8 +36,11 @@ public class AssertionsRole {
 
         RoleCommonResponseModel responseBody = response.as(RoleCommonResponseModel.class);
 
-        Collections.sort(requestBody.policies);
-        Collections.sort(responseBody.policies);
+        List<String> requestBodyPolicies = new ArrayList<>(requestBody.policies);
+        List<String> responseBodyPolicies = new ArrayList<>(responseBody.policies);
+
+        Collections.sort(requestBodyPolicies);
+        Collections.sort(responseBodyPolicies);
 
         // Check status code
 
@@ -47,7 +50,7 @@ public class AssertionsRole {
 
         assertEquals(requestBody.id, responseBody.id, "Role ID in response is not equal to Role ID in request");
         assertEquals(requestBody.name, responseBody.name, "Role name in response is not equal to role name in request");
-        assertEquals(requestBody.policies, responseBody.policies, "Role policies in response is not equal to role policies in request");
+        assertEquals(requestBodyPolicies, responseBodyPolicies, "Role policies in response is not equal to role policies in request");
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
 
