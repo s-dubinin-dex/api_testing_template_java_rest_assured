@@ -81,6 +81,7 @@ public class AssertionsRole {
         // Check response body
 
         List<GetPoliciesResponseModel> responseBody = response.jsonPath().get();
+        // TODO: придумать, как верифицировать тело ответа
 
         // Check response time
 
