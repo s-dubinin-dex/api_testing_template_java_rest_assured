@@ -150,17 +150,9 @@ public class CommonPositiveTests extends TestBase{
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        List<String> policies = new ArrayList<>();
-        policies.add("notification.write");
-        policies.add("employee.write");
-        policies.add("role.write");
-        policies.add("reminder.write");
-        policies.add("log.read");
-        policies.add("user.read");
-
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
-                .policies(policies)
+                .policies(DataGenerator.getDefaultPolicies())
                 .id(responseBodyAddRole.id)
                 .build();
 

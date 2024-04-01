@@ -267,17 +267,9 @@ public class ExtendedPositiveTests extends TestBase{
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoleNames")
     public void testAddRoleWithValidNames(String name){
 
-        List<String> policies = new ArrayList<>();
-        policies.add("notification.write");
-        policies.add("employee.write");
-        policies.add("role.write");
-        policies.add("reminder.write");
-        policies.add("log.read");
-        policies.add("user.read");
-
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(name)
-                .policies(policies)
+                .policies(DataGenerator.getDefaultPolicies())
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
@@ -354,17 +346,9 @@ public class ExtendedPositiveTests extends TestBase{
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        List<String> policies = new ArrayList<>();
-        policies.add("notification.write");
-        policies.add("employee.write");
-        policies.add("role.write");
-        policies.add("reminder.write");
-        policies.add("log.read");
-        policies.add("user.read");
-
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(name)
-                .policies(policies)
+                .policies(DataGenerator.getDefaultPolicies())
                 .id(responseBodyAddRole.id)
                 .build();
 

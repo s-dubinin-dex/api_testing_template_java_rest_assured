@@ -36,17 +36,9 @@ public class DataGenerator {
 
     public static AddRoleRequestModel getRandomAddRoleRequestModel(){
 
-        List<String> policies = new ArrayList<>();
-        policies.add("notification.read");
-        policies.add("employee.read");
-        policies.add("role.read");
-        policies.add("reminder.read");
-        policies.add("log.read");
-        policies.add("user.read");
-
         return AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + getSalt())
-                .policies(policies)
+                .policies(getDefaultPolicies())
                 .build();
     }
 
@@ -90,6 +82,17 @@ public class DataGenerator {
 
     public static Stream<Arguments> getValidRoleNames(){
         return getValidEmployeeNames();
+    }
+
+    public static List<String> getDefaultPolicies(){
+        return Arrays.asList(
+                "notification.write",
+                "employee.write",
+                "role.write",
+                "reminder.write",
+                "log.read",
+                "user.read"
+        );
     }
 
     public static List<String> getReadPolicies() {
