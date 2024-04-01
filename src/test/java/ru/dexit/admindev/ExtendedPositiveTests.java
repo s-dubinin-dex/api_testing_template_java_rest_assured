@@ -177,7 +177,7 @@ public class ExtendedPositiveTests extends TestBase{
     }
     @Feature("Employee")
     @Story("Генерация приглашения")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Генерация нового приглашения с новым токеном активации с валидным ID")
     @Description("Тест генерирует приглашение с новым токеном активации с валидным ID")
     @Test
