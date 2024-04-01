@@ -191,4 +191,46 @@ public class ExtendedPositiveTests extends TestBase{
         AssertionsEmployee.invitationUpdatedSuccessfully(response, responseBodyCreation);
     }
 
+    @Feature("Employee")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Запрос данных через протокол OData без передачи параметра IncludeDeleted")
+    @Description("Тест запрашивает данные через протокол oData без передачи параметра IncludeDeleted")
+    @Test
+    public void testGetODataEmployeeWithoutIncludeDeleteParam(){
+
+        Response response = CoreApiMethodsEmployee.oDataEmployee();
+
+        AssertionsEmployee.oDataEmployeeReturnsData(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Запрос данных через протокол OData c передачей параметра IncludeDeleted = True")
+    @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = True")
+    @Test
+    public void testGetODataEmployeeWithIncludeDeleteParamEqualTrue(){
+
+        Response response = CoreApiMethodsEmployee.oDataEmployeeWithIncludeDeletedParameter(true);
+
+        AssertionsEmployee.oDataEmployeeReturnsData(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Запрос данных через протокол OData c передачей параметра IncludeDeleted = False")
+    @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = False")
+    @Test
+    public void testGetODataEmployeeWithIncludeDeleteParamEqualFalse(){
+
+        Response response = CoreApiMethodsEmployee.oDataEmployeeWithIncludeDeletedParameter(false);
+
+        AssertionsEmployee.oDataEmployeeReturnsData(response);
+
+    }
+
 }

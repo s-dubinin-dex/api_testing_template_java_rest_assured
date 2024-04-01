@@ -48,6 +48,16 @@ public class CoreApiMethodsEmployee extends TestBase {
                 .andReturn();
     }
 
+    @Step("Получение данных через протокол oData c параметром IncludeDeleted")
+    public static Response oDataEmployeeWithIncludeDeletedParameter(Boolean includeDeleted){
+
+        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+                .param("includeDeleted", includeDeleted)
+                .when()
+                .get("/odata/Employee")
+                .andReturn();
+    }
+
     @Step("Удаление сотрудника")
     public static Response deleteEmployee(String employeeId){
 
