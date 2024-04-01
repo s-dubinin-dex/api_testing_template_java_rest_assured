@@ -289,12 +289,12 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Создание роли с валидной политикой из группы read")
     @Description("Тест создаёт роль с валидной политикой из группы read")
     @ParameterizedTest
-    @MethodSource("ru.dexit.admindev.data.DataGenerator#getRoleReadPolicies")
-    public void testAddRoleWithValidReadPolicies(List<String> policy){
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getReadPoliciesStream")
+    public void testAddRoleWithValidReadPolicies(String policy){
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(policy)
+                .policies(List.of(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
@@ -308,12 +308,12 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Создание роли с валидной политикой из группы write")
     @Description("Тест создаёт роль с валидной политикой из группы write")
     @ParameterizedTest
-    @MethodSource("ru.dexit.admindev.data.DataGenerator#getRoleWritePolicies")
-    public void testAddRoleWithValidWritePolicies(List<String> policy){
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getWritePoliciesStream")
+    public void testAddRoleWithValidWritePolicies(String policy){
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(policy)
+                .policies(List.of(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
@@ -329,23 +329,9 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест создаёт роль со всеми политиками")
     public void testAddRoleWithAllPolicies(){
 
-        List<String> policy = new ArrayList<>();
-        policy.add("user.read");
-        policy.add("notification.read");
-        policy.add("notification.write");
-        policy.add("employee.read");
-        policy.add("employee.write");
-        policy.add("role.read");
-        policy.add("role.write");
-        policy.add("reminder.read");
-        policy.add("reminder.write");
-        policy.add("log.read");
-        policy.add("marketing.read");
-        policy.add("marketing.write");
-
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(policy)
+                .policies(DataGenerator.getAllPolicies())
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
