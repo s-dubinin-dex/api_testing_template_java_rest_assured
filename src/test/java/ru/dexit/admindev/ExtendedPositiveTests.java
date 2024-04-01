@@ -290,11 +290,11 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест создаёт роль с валидной политикой из группы read")
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getReadPoliciesStream")
-    public void testAddRoleWithValidReadPolicies(List<String> policy){
+    public void testAddRoleWithValidReadPolicies(String policy){
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(policy)
+                .policies(List.of(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
@@ -309,11 +309,11 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест создаёт роль с валидной политикой из группы write")
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getWritePoliciesStream")
-    public void testAddRoleWithValidWritePolicies(List<String> policy){
+    public void testAddRoleWithValidWritePolicies(String policy){
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(policy)
+                .policies(List.of(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
