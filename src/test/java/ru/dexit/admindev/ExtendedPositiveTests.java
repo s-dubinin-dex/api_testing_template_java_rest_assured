@@ -233,4 +233,21 @@ public class ExtendedPositiveTests extends TestBase{
 
     }
 
+    @Test
+    @Feature("Employee")
+    @Story("Удаление сотрудника")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Удаление сотрудника с валидныым ID")
+    @Description("Тест удаляет сотрудника с валидным ID")
+    public void testDeleteEmployeeWithValidId(){
+
+        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
+        EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
+
+        Response response = CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
+        AssertionsEmployee.employeeDeletedSuccessfully(response);
+
+    }
+
 }
