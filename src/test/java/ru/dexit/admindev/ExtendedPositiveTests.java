@@ -18,6 +18,7 @@ import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.Role.AddRoleRequestModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @DisplayName("Расширенные позитивные тесты")
@@ -294,7 +295,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(List.of(policy))
+                .policies(Arrays.asList(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
@@ -313,7 +314,7 @@ public class ExtendedPositiveTests extends TestBase{
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
-                .policies(List.of(policy))
+                .policies(Arrays.asList(policy))
                 .build();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
