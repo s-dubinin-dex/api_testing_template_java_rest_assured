@@ -55,5 +55,12 @@ public class CoreApiMethodsRole extends TestBase {
                 .get("/odata/Role")
                 .andReturn();
     }
+    @Step("Получение данных через протокол oData")
+    public static Response getODataRoleWithIncludeDeletedParameter(boolean includeDeleted){
 
+        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+                .param("includeDeleted", includeDeleted)
+                .get("/odata/Role")
+                .andReturn();
+    }
 }

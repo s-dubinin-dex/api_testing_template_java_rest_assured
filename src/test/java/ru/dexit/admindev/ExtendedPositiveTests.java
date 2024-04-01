@@ -21,6 +21,9 @@ import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
 
 import java.util.List;
 
+import static ru.dexit.admindev.data.DataGenerator.engLetters;
+import static ru.dexit.admindev.data.DataGenerator.generateRandomString;
+
 @DisplayName("Расширенные позитивные тесты")
 public class ExtendedPositiveTests extends TestBase{
 
@@ -354,4 +357,164 @@ public class ExtendedPositiveTests extends TestBase{
         Response response = CoreApiMethodsRole.updateRole(requestBody);
         AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
     }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Изменение роли с валидной политикой из группы read")
+    @Description("Тест изменяет роль с валидной политикой из группы read")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getReadPoliciesStream")
+    public void testUpdateRoleWithValidReadPolicies(String policy){
+
+        AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
+        RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
+                .policies(List.of(policy))
+                .id(responseBodyAddRole.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
+    }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Изменение роли с валидной политикой из группы write")
+    @Description("Тест изменяет роль с валидной политикой из группы write")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getWritePoliciesStream")
+    public void testUpdateRoleWithValidWritePolicies(String policy){
+
+        AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
+        RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
+                .policies(List.of(policy))
+                .id(responseBodyAddRole.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Изменение роли со всеми политиками")
+    @Description("Тест изменяет роль со всеми политиками")
+    public void testUpdateRoleWithAllPolicies(){
+
+        AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
+        RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
+                .policies(DataGenerator.getAllPolicies())
+                .id(responseBodyAddRole.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Изменение роли с передачей существующего id")
+    @Description("Тест изменяет роль с передачей существующего id")
+    public void testUpdateRoleWithExistingID(){
+
+        AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
+        RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
+                .policies(DataGenerator.getDefaultPolicies())
+                .id(responseBodyAddRole.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Удаление роли с валидным id")
+    @Description("Тест удаляет роль с валидными данными")
+    public void testDeleteRoleWithValidData() {
+
+        AddRoleRequestModel requestBodyForAddingRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForAddingRole = CoreApiMethodsRole.addRole(requestBodyForAddingRole);
+        RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
+
+        Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
+        AssertionsRole.roleDeletedSuccessfully(response);
+
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Список доступных полиси для настройки ролей")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Получение списка полиcи")
+    @Description("Тест получает список доступных полиси для настройки ролей")
+    public void testGetPoliciesWithValidData() {
+
+        Response response = CoreApiMethodsRole.getPolicies();
+        AssertionsRole.policiesGotSuccessfully(response);
+
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Запрос данных через протокол OData без передачи параметра IncludeDeleted")
+    @Description("Тест запрашивает данные через протокол oData без передачи параметра IncludeDeleted")
+    public void testGetODataRoleWithoutIncludeDeletedParam() {
+
+        Response response = CoreApiMethodsRole.getODataRole();
+        AssertionsRole.oDataRoleReturnsData(response);
+
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Запрос данных через протокол OData c передачей параметра IncludeDeleted = True")
+    @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = True")
+    public void testGetODataRoleWithIncludeDeletedParamEqualTrue() {
+
+        Response response = CoreApiMethodsRole.getODataRoleWithIncludeDeletedParameter(true);
+        AssertionsRole.oDataRoleReturnsData(response);
+
+    }
+
+    @Test
+    @Feature("Role")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Запрос данных через протокол OData c передачей параметра IncludeDeleted = False")
+    @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = False")
+    public void testGetODataRoleWithIncludeDeletedParamEqualFalse() {
+
+        Response response = CoreApiMethodsRole.getODataRoleWithIncludeDeletedParameter(false);
+        AssertionsRole.oDataRoleReturnsData(response);
+
+    }
+
 }
