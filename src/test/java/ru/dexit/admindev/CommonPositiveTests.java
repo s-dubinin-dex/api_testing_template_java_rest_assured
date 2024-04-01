@@ -19,9 +19,6 @@ import ru.dexit.admindev.models.Role.AddRoleRequestModel;
 import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
 import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static ru.dexit.admindev.data.DataGenerator.*;
 
 @DisplayName("Общие позитивные тесты. Smoke tests.")

@@ -19,7 +19,6 @@ import ru.dexit.admindev.models.Role.AddRoleRequestModel;
 import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
 import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @DisplayName("Расширенные позитивные тесты")
