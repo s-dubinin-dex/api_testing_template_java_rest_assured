@@ -91,7 +91,7 @@ public class DataGenerator {
         return getValidEmployeeNames();
     }
 
-    public static Stream<Arguments> getRoleReadPolicies(){
+    public static Stream<Arguments> getRoleReadPolicies() {
         return Stream.of(
                 arguments(List.of("user.read")),
                 arguments(List.of("notification.read")),
