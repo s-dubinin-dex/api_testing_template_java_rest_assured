@@ -159,7 +159,7 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест изменяет сотрудника валидными ролями")
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoles")
-    public void testUpdateEmployee(String role){
+    public void testUpdateEmployeeWithValidRole(String role){
 
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
