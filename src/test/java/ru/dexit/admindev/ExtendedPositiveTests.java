@@ -16,6 +16,8 @@ import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
 import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.Role.AddRoleRequestModel;
+import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
+import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -339,4 +341,34 @@ public class ExtendedPositiveTests extends TestBase{
 
     }
 
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Изменение роли с валидными наименованиями")
+    @Description("Тест изменяет роль с валидными наименованиями")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoleNames")
+    public void testUpdateRoleWithValidNames(String name){
+
+        AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
+        RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
+
+        List<String> policies = new ArrayList<>();
+        policies.add("notification.write");
+        policies.add("employee.write");
+        policies.add("role.write");
+        policies.add("reminder.write");
+        policies.add("log.read");
+        policies.add("user.read");
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(name)
+                .policies(policies)
+                .id(responseBodyAddRole.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
+    }
 }
