@@ -175,5 +175,20 @@ public class ExtendedPositiveTests extends TestBase{
         AssertionsEmployee.employeeUpdatedSuccessfully(response, requestBody, responseBodyCreation);
 
     }
+    @Feature("Employee")
+    @Story("Генерация приглашения")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Генерация нового приглашения с новым токеном активации с валидным ID")
+    @Description("Тест генерирует приглашение с новым токеном активации с валидным ID")
+    @Test
+    public void testUpdateInvitationWithValidRole(){
+
+        AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
+        EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
+
+        Response response = CoreApiMethodsEmployee.updateInvitation(responseBodyCreation.id);
+        AssertionsEmployee.invitationUpdatedSuccessfully(response, responseBodyCreation);
+    }
 
 }
