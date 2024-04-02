@@ -503,4 +503,85 @@ public class ValidDataNegativeTests extends TestBase{
         AssertionsRole.roleIsNotUpdatedWithInvalidPolicies(response);
     }
 
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли с некорректными RoleId")
+    @Description("Тест пытается измененить роль с некорректными RoleId")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
+    public void testUpdateRoleWithInvalidRoleId(String id){
+
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(responseBodyForCreation.name)
+                .policies(responseBodyForCreation.policies)
+                .id(id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleIsNotUpdatedWithInvalidRoleId(response);
+    }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли с несуществующим RoleId")
+    @Description("Тест пытается измененить роль с несуществующим RoleId")
+    @Test
+    public void testUpdateRoleWithNotExistRoleId(){
+
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(responseBodyForCreation.name)
+                .policies(responseBodyForCreation.policies)
+                .id(faker.internet().uuid())
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleIsNotUpdatedWithNotExistRoleId(response);
+    }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли Полные права")
+    @Description("Тест пытается изменить роль Полные права")
+    @Test
+    public void testUpdateFullRightsRole(){
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession() + DataGenerator.getSalt())
+                .policies(DataGenerator.getDefaultPolicies())
+                .id(Role.FULL_RIGHTS.roleUUID)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleFullRightsIsNotUpdated(response);
+    }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли Нет прав")
+    @Description("Тест пытается изменить роль Нет прав")
+    @Test
+    public void testUpdateNoRightsRole(){
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(faker.company().profession() + DataGenerator.getSalt())
+                .policies(DataGenerator.getDefaultPolicies())
+                .id(Role.NO_RIGHTS.roleUUID)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleNoRightsIsNotUpdated(response);
+    }
+
 }

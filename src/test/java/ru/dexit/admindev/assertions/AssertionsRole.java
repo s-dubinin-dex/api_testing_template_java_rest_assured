@@ -184,4 +184,56 @@ public class AssertionsRole {
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
+    public static void roleIsNotUpdatedWithInvalidRoleId(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+    public static void roleIsNotUpdatedWithNotExistRoleId(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_NOT_FOUND, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+    public static void roleFullRightsIsNotUpdated(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_PRECONDITION_FAILED, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+    public static void roleNoRightsIsNotUpdated(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_PRECONDITION_FAILED, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
 }
