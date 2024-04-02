@@ -27,6 +27,9 @@ public class DataGenerator {
     // TODO: Сделать рефакторинг генерации валидных/невалидных EmployeeName
     //  с выносом валидных/невалидных символов в константы
 
+    /*//////////////////
+    ////   MODELS   ////
+    *///////////////////
     public static AddEmployeeRequestModel getRandomAddEmployeeRequestModel(){
 
         return AddEmployeeRequestModel.builder()
@@ -44,6 +47,10 @@ public class DataGenerator {
                 .policies(getDefaultPolicies())
                 .build();
     }
+
+    /*/////////////////////////
+    ////   Employee names  ////
+    *//////////////////////////
 
     public static Stream<Arguments> getValidEmployeeNames(){
 
@@ -114,6 +121,10 @@ public class DataGenerator {
         );
     }
 
+    /*////////////////
+    ////   Roles  ////
+    */////////////////
+
     public static Stream<Arguments> getValidRoles(){
         return Stream.of(
                 arguments(Role.FULL_WRITE.roleUUID),
@@ -122,7 +133,6 @@ public class DataGenerator {
         );
     }
 
-
     public static Stream<Arguments> getInvalidRoles(){
         return Stream.of(
             arguments(""),
@@ -130,9 +140,17 @@ public class DataGenerator {
         );
     }
 
+    /*/////////////////////
+    ////   Role names  ////
+    *//////////////////////
+
     public static Stream<Arguments> getValidRoleNames(){
         return getValidEmployeeNames();
     }
+
+    /*///////////////////
+    ////   Policies  ////
+    *////////////////////
 
     public static List<String> getDefaultPolicies(){
         return Arrays.asList(
@@ -186,6 +204,10 @@ public class DataGenerator {
         return getAllPolicies().stream().map(Arguments::of);
     }
 
+    /*/////////////////
+    ////   Emails  ////
+    *//////////////////
+
     public static Stream<Arguments> getValidEmails(){
         String validSpecialCharactersForEmail = "!#$%&'()*+,-./:;<>?[]^_`{|}~ " + "1";
 
@@ -218,7 +240,6 @@ public class DataGenerator {
 
     }
 
-
     public static Stream<Arguments> getInvalidEmails(){
         // TODO: решить проблему с экранированием слэшей и кавычек
 //        String invalidSpecialCharactersForEmail = "\"@\\";
@@ -239,12 +260,19 @@ public class DataGenerator {
 
         return result.stream().map(Arguments::of);
     }
+
+    /*////////////////////////////
+    ////   Auxiliary methods  ////
+    */////////////////////////////
+
     public static String generateEmailWithCharacterInUsername(Character character){
         return character + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1);
     }
+
     public static String generateEmailWithCharacterInServerName(Character character){
         return generateRandomString(engLetters, 1) + "@" + character + "." + generateRandomString(engLetters, 1);
     }
+
     public static String generateEmailWithCharacterInDomain(Character character){
         return generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + character;
     }
