@@ -204,6 +204,9 @@ public class DataGenerator {
         result.add(generateRandomString(rusLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
         result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(rusLetters, 1) + "." + generateRandomString(rusLetters, 1));
         result.add(generateRandomString(digits, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 0) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 0));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 0) + "." + generateRandomString(engLetters, 0));
 
         for (Character specialCharacter: validSpecialCharactersForEmail.toCharArray()){
             result.add(generateEmailWithCharacterInUsername(specialCharacter));
