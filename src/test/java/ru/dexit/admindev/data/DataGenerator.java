@@ -261,6 +261,17 @@ public class DataGenerator {
         return result.stream().map(Arguments::of);
     }
 
+    /*//////////////
+    ////   IDs  ////
+    *///////////////
+
+    public static Stream<Arguments> getInvalidIDs(){
+        return Stream.of(
+                arguments(""),
+                arguments(faker.name().firstName())
+        );
+    }
+
     /*////////////////////////////
     ////   Auxiliary methods  ////
     */////////////////////////////
