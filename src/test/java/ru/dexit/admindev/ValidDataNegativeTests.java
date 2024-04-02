@@ -19,6 +19,8 @@ import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.RoleCommonResponseModel;
 
+import java.util.List;
+
 @DisplayName("Негативные тесты с валидными данными (по типу данных)")
 public class ValidDataNegativeTests extends TestBase{
 
@@ -409,5 +411,25 @@ public class ValidDataNegativeTests extends TestBase{
         Response response = CoreApiMethodsRole.addRole(requestBody);
         AssertionsRole.roleIsNotCreatedWithExistName(response);
     }
+
+    @Feature("Role")
+    @Story("Создание роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Создание роли с некорректными политиками")
+    @Description("Тест пытается создать роль с некорректными политиками")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidPoliciesStream")
+    public void testAddRoleWithInvalidPolicies(List<String> policies){
+
+        AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
+                .name(faker.company().profession() + DataGenerator.getSalt())
+                .policies(policies)
+                .build();
+
+        Response response = CoreApiMethodsRole.addRole(requestBody);
+        AssertionsRole.roleIsNotCreatedWithInvalidPolicies(response);
+    }
+
+
 
 }

@@ -216,6 +216,15 @@ public class DataGenerator {
         return getAllPolicies().stream().map(Arguments::of);
     }
 
+    public static Stream<Arguments> getInvalidPoliciesStream(){
+        return Stream.of(
+                arguments(new ArrayList<String>()),
+                arguments(List.of("user.write")),
+                arguments(List.of("log.write")),
+                arguments(List.of(faker.name().firstName()))
+        );
+    }
+
     /*/////////////////
     ////   Emails  ////
     *//////////////////
