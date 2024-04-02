@@ -7,13 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
+import ru.dexit.admindev.assertions.AssertionsRole;
 import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.data.Employee;
 import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
+import ru.dexit.admindev.helpers.CoreApiMethodsRole;
 import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.employee.EmployeeCommonResponseModel;
 import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.role.AddRoleRequestModel;
+import ru.dexit.admindev.models.role.RoleCommonResponseModel;
 
 @DisplayName("Негативные тесты с валидными данными (по типу данных)")
 public class ValidDataNegativeTests extends TestBase{
@@ -367,5 +371,43 @@ public class ValidDataNegativeTests extends TestBase{
 
     }
 
+    @Feature("Role")
+    @Story("Создание роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Создание роли с невалидными именами")
+    @Description("Тест пытается создать роль с невалидными именами")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleNames")
+    public void testAddRoleWithInvalidName(String name){
+
+        AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
+                .name(name)
+                .policies(DataGenerator.getDefaultPolicies())
+                .build();
+        Response response = CoreApiMethodsRole.addRole(requestBody);
+
+        AssertionsRole.roleIsNotCreatedInvalidName(response);
+    }
+
+    @Feature("Role")
+    @Story("Создание роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Создание роли с существующим именем")
+    @Description("Тест пытается создать роль с существующим именем")
+    @Test
+    public void testAddRoleWithExistingName(){
+
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
+                .name(responseBodyForCreation.name)
+                .policies(DataGenerator.getDefaultPolicies())
+                .build();
+
+        Response response = CoreApiMethodsRole.addRole(requestBody);
+        AssertionsRole.roleIsNotCreatedWithExistName(response);
+    }
 
 }

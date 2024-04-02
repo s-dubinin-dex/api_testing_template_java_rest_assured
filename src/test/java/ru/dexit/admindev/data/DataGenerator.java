@@ -156,6 +156,10 @@ public class DataGenerator {
         return getValidEmployeeNames();
     }
 
+    public static Stream<Arguments> getInvalidRoleNames(){
+        return getInvalidEmployeeNames();
+    }
+
     /*///////////////////
     ////   Policies  ////
     *////////////////////
