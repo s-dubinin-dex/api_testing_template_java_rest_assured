@@ -107,10 +107,10 @@ public class DataGenerator {
                 arguments(generateRandomString(rusLetters, 5) + "|" + generateRandomString(rusLetters, 5)),
                 arguments(generateRandomString(rusLetters, 5) + "}" + generateRandomString(rusLetters, 5)),
                 arguments(generateRandomString(rusLetters, 5) + "~" + generateRandomString(rusLetters, 5)),
-                arguments(" " + faker.name()),
-                arguments(faker.name() + " "),
-                arguments("." + faker.name()),
-                arguments(faker.name() + " " +  faker.name() + " " + faker.name() + " " + faker.name())
+                arguments(" " + faker.name().firstName()),
+                arguments(faker.name().firstName() + " "),
+                arguments("." + faker.name().firstName()),
+                arguments(faker.name().firstName() + " " +  faker.name().firstName() + " " + faker.name().firstName() + " " + faker.name().firstName())
         );
     }
 
