@@ -354,4 +354,18 @@ public class ValidDataNegativeTests extends TestBase{
 
     }
 
+    @Feature("Employee")
+    @Story("Удаление сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление сотрудника с полными правами")
+    @Description("Попытка удаления сотрудника с полными правами")
+    @Test
+    public void testDeleteEmployeeWithFullRightsIsForbidden(){
+
+        Response response = CoreApiMethodsEmployee.deleteEmployee(Employee.ADMINISTRATOR.id);
+        AssertionsEmployee.deleteEmployeeWithFullRightsIsForbidden(response);
+
+    }
+
+
 }
