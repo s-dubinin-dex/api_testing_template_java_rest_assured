@@ -480,4 +480,27 @@ public class ValidDataNegativeTests extends TestBase{
         AssertionsRole.roleIsNotUpdatedWithExistName(response);
     }
 
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли с некорректными политиками")
+    @Description("Тест пытается измененить роль с некорректными политиками")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidPoliciesStream")
+    public void testUpdateRoleWithInvalidPolicies(List<String> policies){
+
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(responseBodyForCreation.name)
+                .policies(policies)
+                .id(responseBodyForCreation.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleIsNotUpdatedWithInvalidPolicies(response);
+    }
+
 }
