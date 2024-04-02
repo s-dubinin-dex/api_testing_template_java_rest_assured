@@ -290,4 +290,31 @@ public class ValidDataNegativeTests extends TestBase{
 
     }
 
+    @Feature("Employee")
+    @Story("Генерация приглашения")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Генерация приглашения сотруднику с невалидным ID")
+    @Description("Генерация приглашения сотруднику с невалидным ID")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeIDs")
+    public void testUpdateInvitationWithInvalidID(String id){
+
+        Response response = CoreApiMethodsEmployee.updateInvitation(id);
+        AssertionsEmployee.invitationIsNotSentInvalidID(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Генерация приглашения")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Генерация приглашения сотруднику с несуществующим ID")
+    @Description("Генерация приглашения сотруднику с несуществующим ID")
+    @Test
+    public void testUpdateInvitationWithNotExistID(){
+
+        Response response = CoreApiMethodsEmployee.updateInvitation(faker.internet().uuid());
+        AssertionsEmployee.invitationIsNotSentNotExistID(response);
+
+    }
+
 }

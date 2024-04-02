@@ -294,6 +294,34 @@ public class AssertionsEmployee {
 
     }
 
+    public static void invitationIsNotSentInvalidID(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void invitationIsNotSentNotExistID(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_NOT_FOUND, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
     // TODO: подумать о том, чтобы вынести проверку времени ответа в отдельный класс AssertionsCommon или AssertionsBase и сделать ассерт в AfterEach
 
 }
