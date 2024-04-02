@@ -120,6 +120,18 @@ public class DataGenerator {
         );
     }
 
+    /*/////////////////////
+    ////   Role names  ////
+    *//////////////////////
+
+    public static Stream<Arguments> getValidRoleNames(){
+        return getValidEmployeeNames();
+    }
+
+    public static Stream<Arguments> getInvalidRoleNames(){
+        return getInvalidEmployeeNames();
+    }
+
     /*////////////////
     ////   Roles  ////
     */////////////////
@@ -129,6 +141,17 @@ public class DataGenerator {
                 arguments(Role.FULL_WRITE.roleUUID),
                 arguments(Role.FULL_READ.roleUUID),
                 arguments(Role.NO_RIGHTS.roleUUID)
+        );
+    }
+
+    /*//////////////
+    ////   IDs  ////
+    *///////////////
+
+    public static Stream<Arguments> getInvalidIDs(){
+        return Stream.of(
+                arguments(""),
+                arguments(faker.name().firstName())
         );
     }
 
@@ -146,18 +169,6 @@ public class DataGenerator {
 
     public static Stream<Arguments> getInvalidEmployeeIDs(){
         return getInvalidIDs();
-    }
-
-    /*/////////////////////
-    ////   Role names  ////
-    *//////////////////////
-
-    public static Stream<Arguments> getValidRoleNames(){
-        return getValidEmployeeNames();
-    }
-
-    public static Stream<Arguments> getInvalidRoleNames(){
-        return getInvalidEmployeeNames();
     }
 
     /*///////////////////
@@ -280,17 +291,6 @@ public class DataGenerator {
         }
 
         return result.stream().map(Arguments::of);
-    }
-
-    /*//////////////
-    ////   IDs  ////
-    *///////////////
-
-    public static Stream<Arguments> getInvalidIDs(){
-        return Stream.of(
-                arguments(""),
-                arguments(faker.name().firstName())
-        );
     }
 
     /*////////////////////////////
