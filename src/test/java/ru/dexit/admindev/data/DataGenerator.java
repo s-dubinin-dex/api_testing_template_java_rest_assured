@@ -218,6 +218,27 @@ public class DataGenerator {
 
     }
 
+
+    public static Stream<Arguments> getInvalidEmails(){
+        // TODO: решить проблему с экранированием слэшей и кавычек
+//        String invalidSpecialCharactersForEmail = "\"@\\";
+        String invalidSpecialCharactersForEmail = "@";
+
+        List<String> result = new ArrayList<>();
+        result.add(generateRandomString(engLetters, 0) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 251) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 251) + "." + generateRandomString(engLetters, 1));
+        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 251));
+        result.add(generateRandomString(engLetters, 15));
+
+        for (Character specialcharacter: invalidSpecialCharactersForEmail.toCharArray()){
+            result.add(generateEmailWithCharacterInUsername(specialcharacter));
+            result.add(generateEmailWithCharacterInServerName(specialcharacter));
+            result.add(generateEmailWithCharacterInDomain(specialcharacter));
+        }
+
+        return result.stream().map(Arguments::of);
+    }
     public static String generateEmailWithCharacterInUsername(Character character){
         return character + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1);
     }
