@@ -29,7 +29,7 @@ public class CommonPositiveTests extends TestBase{
     @Story("Авторизация и получение токена")
     @Severity(SeverityLevel.BLOCKER)
     @DisplayName("Авторизация и получение токена")
-    @Description("Тест проходит авторизаци и проверяет получение токена")
+    @Description("Тест проходит авторизацию и проверяет получение токена")
     public void testAuthorizationAndGettingToken(){
 
         Response response = CoreApiMethodsIdentity.connectToken();

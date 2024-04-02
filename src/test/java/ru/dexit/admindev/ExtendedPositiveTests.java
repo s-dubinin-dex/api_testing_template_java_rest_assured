@@ -29,7 +29,7 @@ public class ExtendedPositiveTests extends TestBase{
 
     @Epic("Employee")
     @Story("Создание сотрудника")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Создание сотрудника c валидным именем:")
     @Description("Тест создаёт сотрудника с валидными именами")
     @ParameterizedTest
