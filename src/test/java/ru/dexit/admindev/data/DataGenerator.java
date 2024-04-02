@@ -24,6 +24,9 @@ public class DataGenerator {
     public static final String rusLetters = rusLettersLowerCase + rusLettersUpperCase;
     public static final String digits = "0123456789";
 
+    // TODO: Сделать рефакторинг генерации валидных/невалидных EmployeeName
+    //  с выносом валидных/невалидных символов в константы
+
     public static AddEmployeeRequestModel getRandomAddEmployeeRequestModel(){
 
         return AddEmployeeRequestModel.builder()
@@ -69,6 +72,45 @@ public class DataGenerator {
                 arguments(generateRandomString(rusLetters, 5) + "_" + " " + generateRandomString(rusLetters, 5)),
                 arguments(generateRandomString(rusLetters, 5) + "`" + " " + generateRandomString(rusLetters, 5)),
                 arguments(generateRandomString(rusLetters, 5) + " " + " " + generateRandomString(rusLetters, 5))
+        );
+    }
+
+    public static Stream<Arguments> getInvalidEmployeeNames(){
+        return Stream.of(
+                arguments(""),
+                arguments(generateRandomString(rusLettersLowerCase, 2)),
+                arguments(generateRandomString(rusLettersLowerCase, 51)),
+                arguments(generateRandomString(rusLetters, 5) + "!" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "\"" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "#" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "$" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "%" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "&" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "(" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + ")" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "*" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "+" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "," + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "-" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "/" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + ":" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + ";" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "<" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "=" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + ">" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "?" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "@" + generateRandomString(rusLetters, 5)),
+//                TODO: разобраться с передачей слэша
+//                arguments(generateRandomString(rusLetters, 5) + "\\" + generateRandomString(rusLetters, 5)),
+//                arguments(generateRandomString(rusLetters, 5) + (char) 92 + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "{" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "|" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "}" + generateRandomString(rusLetters, 5)),
+                arguments(generateRandomString(rusLetters, 5) + "~" + generateRandomString(rusLetters, 5)),
+                arguments(" " + faker.name()),
+                arguments(faker.name() + " "),
+                arguments("." + faker.name()),
+                arguments(faker.name() + " " +  faker.name() + " " + faker.name() + " " + faker.name())
         );
     }
 
