@@ -242,7 +242,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
-                .name(faker.name().firstName())
+                .name(responseBodyForCreation.name)
                 .roleId(id)
                 .build();
 
@@ -265,7 +265,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
-                .name(faker.name().firstName())
+                .name(responseBodyForCreation.name)
                 .roleId(Role.FULL_RIGHTS.roleUUID)
                 .build();
 
@@ -288,7 +288,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
-                .name(faker.name().firstName())
+                .name(responseBodyForCreation.name)
                 .roleId(faker.internet().uuid())
                 .build();
 
