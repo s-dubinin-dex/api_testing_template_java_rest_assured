@@ -122,6 +122,14 @@ public class DataGenerator {
         );
     }
 
+
+    public static Stream<Arguments> getInvalidRoles(){
+        return Stream.of(
+            arguments(""),
+            arguments(faker.name().firstName())
+        );
+    }
+
     public static Stream<Arguments> getValidRoleNames(){
         return getValidEmployeeNames();
     }
