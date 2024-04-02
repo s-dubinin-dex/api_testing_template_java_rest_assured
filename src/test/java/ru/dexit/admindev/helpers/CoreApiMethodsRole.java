@@ -3,8 +3,8 @@ package ru.dexit.admindev.helpers;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.dexit.admindev.TestBase;
-import ru.dexit.admindev.models.Role.AddRoleRequestModel;
-import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
+import ru.dexit.admindev.models.role.AddRoleRequestModel;
+import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
 import ru.dexit.admindev.spec.Specifications;
 
 public class CoreApiMethodsRole extends TestBase {

@@ -12,12 +12,12 @@ import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
 import ru.dexit.admindev.helpers.CoreApiMethodsRole;
-import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
-import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
-import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
-import ru.dexit.admindev.models.Role.AddRoleRequestModel;
-import ru.dexit.admindev.models.Role.RoleCommonResponseModel;
-import ru.dexit.admindev.models.Role.UpdateRoleRequestModel;
+import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.employee.EmployeeCommonResponseModel;
+import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.role.AddRoleRequestModel;
+import ru.dexit.admindev.models.role.RoleCommonResponseModel;
+import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
 
 import java.util.List;
 

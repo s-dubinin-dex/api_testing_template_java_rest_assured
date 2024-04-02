@@ -1,20 +1,19 @@
-package ru.dexit.admindev.models.Role;
+package ru.dexit.admindev.models.employee;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleCommonResponseModel {
+public class ODataEmployeeResponseModel {
     public String id;
     public String name;
-    public List<String> policies;
     public String createdUtc;
     public String deletedUtc;
+    public String roleId;
+    public String role;
+    public String email;
+    public String activationDate;
 }

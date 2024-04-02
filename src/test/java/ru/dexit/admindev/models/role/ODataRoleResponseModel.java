@@ -1,4 +1,4 @@
-package ru.dexit.admindev.models.Role;
+package ru.dexit.admindev.models.role;
 
 import lombok.Data;
 

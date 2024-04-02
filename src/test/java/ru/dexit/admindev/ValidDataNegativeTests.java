@@ -11,9 +11,9 @@ import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.data.Employee;
 import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.helpers.CoreApiMethodsEmployee;
-import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
-import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
-import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.employee.EmployeeCommonResponseModel;
+import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 
 @DisplayName("Негативные тесты с валидными данными (по типу данных)")
 public class ValidDataNegativeTests extends TestBase{

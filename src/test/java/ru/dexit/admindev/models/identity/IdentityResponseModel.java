@@ -1,4 +1,4 @@
-package ru.dexit.admindev.models.Identity;
+package ru.dexit.admindev.models.identity;
 
 import lombok.Data;
 

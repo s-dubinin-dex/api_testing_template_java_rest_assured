@@ -1,4 +1,5 @@
-package ru.dexit.admindev.models.Employee;
+package ru.dexit.admindev.models.employee;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class UpdateEmployeeRequestModel {
-    public String id;
+public class AddEmployeeRequestModel {
     public String name;
     public String roleId;
+    public String email;
 }

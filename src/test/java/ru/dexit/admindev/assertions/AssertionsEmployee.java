@@ -3,10 +3,10 @@ package ru.dexit.admindev.assertions;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import ru.dexit.admindev.data.Role;
-import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
-import ru.dexit.admindev.models.Employee.EmployeeCommonResponseModel;
-import ru.dexit.admindev.models.Employee.ODataEmployeeResponseModel;
-import ru.dexit.admindev.models.Employee.UpdateEmployeeRequestModel;
+import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.employee.EmployeeCommonResponseModel;
+import ru.dexit.admindev.models.employee.ODataEmployeeResponseModel;
+import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

@@ -1,4 +1,4 @@
-package ru.dexit.admindev.models.Role;
+package ru.dexit.admindev.models.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateRoleRequestModel {
-
+public class AddRoleRequestModel {
     public String name;
     public List<String> policies;
-    public String id;
 }

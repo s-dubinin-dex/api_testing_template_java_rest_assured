@@ -1,5 +1,4 @@
-package ru.dexit.admindev.models.Employee;
-
+package ru.dexit.admindev.models.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddEmployeeRequestModel {
-    public String name;
-    public String roleId;
-    public String email;
+public class GetPoliciesResponsePolicyModel {
+    public String value;
 }

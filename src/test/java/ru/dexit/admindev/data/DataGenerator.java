@@ -2,9 +2,8 @@ package ru.dexit.admindev.data;
 
 import com.github.javafaker.Faker;
 import org.junit.jupiter.params.provider.Arguments;
-import ru.dexit.admindev.models.Employee.AddEmployeeRequestModel;
-
-import ru.dexit.admindev.models.Role.AddRoleRequestModel;
+import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
+import ru.dexit.admindev.models.role.AddRoleRequestModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
