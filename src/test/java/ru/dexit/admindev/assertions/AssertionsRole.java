@@ -145,4 +145,30 @@ public class AssertionsRole {
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
+    public static void roleIsNotUpdatedInvalidName(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+    public static void roleIsNotUpdatedWithExistName(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_CONFLICT, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
 }

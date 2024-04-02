@@ -18,6 +18,7 @@ import ru.dexit.admindev.models.employee.EmployeeCommonResponseModel;
 import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.RoleCommonResponseModel;
+import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
 
 import java.util.List;
 
@@ -430,6 +431,53 @@ public class ValidDataNegativeTests extends TestBase{
         AssertionsRole.roleIsNotCreatedWithInvalidPolicies(response);
     }
 
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли с невалидными именами")
+    @Description("Тест пытается измененить роль с невалидными именами")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleNames")
+    public void testUpdateRoleWithInvalidName(String name){
 
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(name)
+                .policies(DataGenerator.getDefaultPolicies())
+                .id(responseBodyForCreation.id)
+                .build();
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+
+        AssertionsRole.roleIsNotUpdatedInvalidName(response);
+    }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли существующим именем")
+    @Description("Тест пытается изменить роль существующим именем")
+    @Test
+    public void testUpdateRoleWithExistingName(){
+
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        AddRoleRequestModel requestBodyForUpdate = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForUpdate = CoreApiMethodsRole.addRole(requestBodyForUpdate);
+        RoleCommonResponseModel responseBodyForUpdate = responseForUpdate.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name(responseBodyForCreation.name)
+                .policies(DataGenerator.getDefaultPolicies())
+                .id(responseBodyForUpdate.id)
+                .build();
+
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+        AssertionsRole.roleIsNotUpdatedWithExistName(response);
+    }
 
 }
