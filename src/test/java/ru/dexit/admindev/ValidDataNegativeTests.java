@@ -317,4 +317,14 @@ public class ValidDataNegativeTests extends TestBase{
 
     }
 
+    @Feature("Employee")
+    @Story("Интерфейс запроса данных через протокол OData")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Запрос данных через протокол OData")
+    @Description("Тест не реализован")
+    @Test
+    public void testGetODataEmployeeDraft(){
+
+    }
+
 }
