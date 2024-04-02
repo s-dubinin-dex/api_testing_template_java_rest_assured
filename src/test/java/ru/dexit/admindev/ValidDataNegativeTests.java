@@ -196,4 +196,28 @@ public class ValidDataNegativeTests extends TestBase{
 
     }
 
+    @Feature("Employee")
+    @Story("Изменение сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение сотрудника c невалидным именем")
+    @Description("Тест изменяет сотрудника c невалидным именем")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeNames")
+    public void testUpdateEmployeeWithInvalidName(String name){
+
+        AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
+        EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
+
+        UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
+                .id(responseBodyForCreation.id)
+                .name(name)
+                .roleId(Role.FULL_READ.roleUUID)
+                .build();
+
+        Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
+        AssertionsEmployee.employeeIsNotUpdatedInvalidName(response);
+
+    }
+
 }
