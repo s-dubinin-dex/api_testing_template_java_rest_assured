@@ -115,7 +115,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
 
-        AssertionsEmployee.employeeIsNotCreatedDuplicateEmail(response);
+        AssertionsEmployee.employeeIsNotUpdatedDuplicateEmail(response);
     }
 
     @Feature("Employee")
@@ -135,7 +135,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
 
-        AssertionsEmployee.employeeIsNotCreatedInvalidEmail(response);
+        AssertionsEmployee.employeeIsNotUpdatedInvalidEmail(response);
     }
 
     @Feature("Employee")
@@ -154,7 +154,7 @@ public class ValidDataNegativeTests extends TestBase{
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
-        AssertionsEmployee.employeeIsNotCreatedInvalidID(response);
+        AssertionsEmployee.employeeIsNotUpdatedInvalidID(response);
 
     }
 
@@ -173,7 +173,7 @@ public class ValidDataNegativeTests extends TestBase{
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
-        AssertionsEmployee.employeeIsNotCreatedNotExistID(response);
+        AssertionsEmployee.employeeIsNotUpdatedNotExistID(response);
 
     }
 
@@ -192,7 +192,7 @@ public class ValidDataNegativeTests extends TestBase{
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
-        AssertionsEmployee.employeeIsNotCreatedDeletingAdministratorNotAllowed(response);
+        AssertionsEmployee.employeeIsNotUpdatedAdministratorIsReadOnly(response);
 
     }
 

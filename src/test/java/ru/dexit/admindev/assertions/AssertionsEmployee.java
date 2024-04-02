@@ -169,7 +169,7 @@ public class AssertionsEmployee {
 
     }
 
-    public static void employeeIsNotCreatedDuplicateEmail(Response response){
+    public static void employeeIsNotUpdatedDuplicateEmail(Response response){
 
         // Check status code
 
@@ -183,7 +183,7 @@ public class AssertionsEmployee {
 
     }
 
-    public static void employeeIsNotCreatedInvalidEmail(Response response){
+    public static void employeeIsNotUpdatedInvalidEmail(Response response){
 
         // Check status code
 
@@ -197,7 +197,7 @@ public class AssertionsEmployee {
 
     }
 
-    public static void employeeIsNotCreatedInvalidID(Response response){
+    public static void employeeIsNotUpdatedInvalidID(Response response){
 
         // Check status code
 
@@ -211,7 +211,7 @@ public class AssertionsEmployee {
 
     }
 
-    public static void employeeIsNotCreatedNotExistID(Response response){
+    public static void employeeIsNotUpdatedNotExistID(Response response){
 
         // Check status code
 
@@ -225,7 +225,7 @@ public class AssertionsEmployee {
 
     }
 
-    public static void employeeIsNotCreatedDeletingAdministratorNotAllowed(Response response){
+    public static void employeeIsNotUpdatedAdministratorIsReadOnly(Response response){
 
         // Check status code
 
