@@ -133,11 +133,20 @@ public class DataGenerator {
         );
     }
 
-    public static Stream<Arguments> getInvalidRoles(){
-        return Stream.of(
-            arguments(""),
-            arguments(faker.name().firstName())
-        );
+    /*///////////////////
+    ////   Roles ID  ////
+    *////////////////////
+
+    public static Stream<Arguments> getInvalidRoleIDs(){
+        return getInvalidIDs();
+    }
+
+    /*///////////////////////
+    ////   Employee IDs  ////
+    *////////////////////////
+
+    public static Stream<Arguments> getInvalidEmployeeIDs(){
+        return getInvalidIDs();
     }
 
     /*/////////////////////

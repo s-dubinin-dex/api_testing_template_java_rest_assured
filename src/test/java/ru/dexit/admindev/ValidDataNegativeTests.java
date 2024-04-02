@@ -44,7 +44,7 @@ public class ValidDataNegativeTests extends TestBase{
     @DisplayName("Создание сотрудника с невалидными ролями")
     @Description("Тест пытается создать сотрудника с невалидными ролями")
     @ParameterizedTest
-    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoles")
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
     public void testAddEmployeeWithInvalidRole(String roleUUID){
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
@@ -144,7 +144,7 @@ public class ValidDataNegativeTests extends TestBase{
     @DisplayName("Изменение сотрудника c невалидным ID")
     @Description("Тест изменяет сотрудника c невалидным ID")
     @ParameterizedTest
-    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidIDs")
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeIDs")
     public void testUpdateEmployeeWithInvalidId(String id){
 
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
