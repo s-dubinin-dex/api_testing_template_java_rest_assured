@@ -161,8 +161,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Feature("Employee")
     @Story("Изменение сотрудника")
     @Severity(SeverityLevel.MINOR)
-    @DisplayName("Изменение сотрудника c невалидным ID")
-    @Description("Тест изменяет сотрудника c невалидным ID")
+    @DisplayName("Изменение сотрудника c несуществующим ID")
+    @Description("Тест изменяет сотрудника c несуществующим ID")
     @Test
     public void testUpdateEmployeeWithNotExistId(){
 
@@ -217,6 +217,76 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
         AssertionsEmployee.employeeIsNotUpdatedInvalidName(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Изменение сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение сотруднику роли на невалидную roleID")
+    @Description("Изменение сотруднику роли на невалидную roleID")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
+    public void testUpdateEmployeeWithInvalidID(String id){
+
+        AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
+        EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
+
+        UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
+                .id(responseBodyForCreation.id)
+                .name(faker.name().firstName())
+                .roleId(id)
+                .build();
+
+        Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
+        AssertionsEmployee.employeeIsNotUpdatedInvalidRoleID(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Изменение сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение сотруднику роли на \"Полные права\"")
+    @Description("Изменение сотруднику роли на \"Полные права\"")
+    @Test
+    public void testUpdateEmployeeWithFullRightsRoleID(){
+
+        AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
+        EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
+
+        UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
+                .id(responseBodyForCreation.id)
+                .name(faker.name().firstName())
+                .roleId(Role.FULL_RIGHTS.roleUUID)
+                .build();
+
+        Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
+        AssertionsEmployee.employeeIsNotUpdatedAssigningFullRights(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Изменение сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение сотруднику роли на роль c несуществующим roleID")
+    @Description("Изменение сотруднику роли на роль c несуществующим roleID")
+    @Test
+    public void testUpdateEmployeeWithNotExistRoleID(){
+
+        AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
+        EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
+
+        UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
+                .id(responseBodyForCreation.id)
+                .name(faker.name().firstName())
+                .roleId(faker.internet().uuid())
+                .build();
+
+        Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
+        AssertionsEmployee.employeeIsNotUpdatedRoleNotExist(response);
 
     }
 

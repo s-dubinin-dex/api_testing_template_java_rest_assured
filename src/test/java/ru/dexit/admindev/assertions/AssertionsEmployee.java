@@ -252,6 +252,47 @@ public class AssertionsEmployee {
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
+    public static void employeeIsNotUpdatedInvalidRoleID(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void employeeIsNotUpdatedAssigningFullRights(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_PRECONDITION_FAILED, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void employeeIsNotUpdatedRoleNotExist(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_NOT_FOUND, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
 
     // TODO: подумать о том, чтобы вынести проверку времени ответа в отдельный класс AssertionsCommon или AssertionsBase и сделать ассерт в AfterEach
 
