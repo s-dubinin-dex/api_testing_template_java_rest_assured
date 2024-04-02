@@ -327,4 +327,31 @@ public class ValidDataNegativeTests extends TestBase{
 
     }
 
+    @Feature("Employee")
+    @Story("Удаление сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление сотрудника с невалидным ID")
+    @Description("Удаление сотрудника с невалидным ID")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeIDs")
+    public void testDeleteEmployeeWithInvalidID(String id){
+
+        Response response = CoreApiMethodsEmployee.deleteEmployee(id);
+        AssertionsEmployee.employeeIsNotDeletedInvalidID(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Удаление сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление сотрудника с несуществующим ID")
+    @Description("Удаление сотрудника с несуществующим ID")
+    @Test
+    public void testDeleteEmployeeWithNotExistID(){
+
+        Response response = CoreApiMethodsEmployee.deleteEmployee(faker.internet().uuid());
+        AssertionsEmployee.employeeIsNotDeletedNotExistID(response);
+
+    }
+
 }
