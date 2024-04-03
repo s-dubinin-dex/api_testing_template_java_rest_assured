@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class DataGenerator {
-    static Faker faker = new Faker();
+    public static final Faker faker = new Faker();
     public static final String engLettersLowerCase = "abcdefghijklmnopqrstuvwxyz";
     public static final String engLettersUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final String engLetters = engLettersLowerCase + engLettersUpperCase;

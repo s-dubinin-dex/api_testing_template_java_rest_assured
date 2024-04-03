@@ -1,13 +1,9 @@
 package ru.dexit.admindev.assertions;
 
 import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
 import ru.dexit.admindev.models.identity.IdentityResponseModel;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AssertionsIdentity {
 

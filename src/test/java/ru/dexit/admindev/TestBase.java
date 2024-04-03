@@ -9,7 +9,7 @@ public class TestBase {
     protected final static String URL_IDENTITY = BASE_URL + "/identity";
     protected final static String URL_ADMIN = BASE_URL + "/admin";
     protected static String TOKEN;
-    protected static Faker faker = new Faker();
+    protected static final Faker faker = new Faker();
 
     @BeforeAll
     static void beforeAll() {
