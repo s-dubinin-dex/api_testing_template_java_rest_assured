@@ -236,4 +236,74 @@ public class AssertionsRole {
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
+
+    public static void roleAssignedToEmployeeIsNotDeleted(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_CONFLICT, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void roleIsNotDeletedInvalidRoleId(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void roleIsNotDeletedNotExistRoleId(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_NOT_FOUND, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void roleFullRightsIsNotDeleted(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_PRECONDITION_FAILED, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void roleNoRightsIsNotDeleted(Response response){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_PRECONDITION_FAILED, response.statusCode(), "Incorrect status code");
+
+        // TODO: Добавить проверку моделей
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
 }

@@ -584,4 +584,80 @@ public class ValidDataNegativeTests extends TestBase{
         AssertionsRole.roleNoRightsIsNotUpdated(response);
     }
 
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление роли, назначенной на сотрудника")
+    @Description("Тест пытается удалить роль, назначенную на сотрудника")
+    @Test
+    public void testDeleteRoleAssignedToEmployee(){
+
+        AddRoleRequestModel requestBodyForRoleCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForRoleCreation = CoreApiMethodsRole.addRole(requestBodyForRoleCreation);
+        RoleCommonResponseModel responseBodyForRoleCreation = responseForRoleCreation.as(RoleCommonResponseModel.class);
+
+        AddEmployeeRequestModel requestBodyForEmployeeCreation = AddEmployeeRequestModel.builder()
+                .name(faker.name().firstName())
+                .roleId(responseBodyForRoleCreation.id)
+                .email(faker.internet().emailAddress())
+                .build();
+
+        Response responseForEmployeeCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForEmployeeCreation);
+
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(responseBodyForRoleCreation.id);
+        AssertionsRole.roleAssignedToEmployeeIsNotDeleted(responseForRoleDeleting);
+    }
+
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление роли c некорректным ID")
+    @Description("Тест пытается удалить роль c некорректным ID")
+    @ParameterizedTest
+    @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
+    public void testDeleteRoleWithInvalidID(String id){
+
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(id);
+        AssertionsRole.roleIsNotDeletedInvalidRoleId(responseForRoleDeleting);
+
+    }
+
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление роли c несуществующим ID")
+    @Description("Тест пытается удалить роль c несуществующим ID")
+    @Test
+    public void testDeleteRoleWithNotExistID(){
+
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(faker.internet().uuid());
+        AssertionsRole.roleIsNotDeletedNotExistRoleId(responseForRoleDeleting);
+
+    }
+
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление роли Полные права")
+    @Description("Тест пытается удалить роль Полные права")
+    @Test
+    public void testDeleteFullRightsRoleIsForbidden(){
+
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.FULL_RIGHTS.roleUUID);
+        AssertionsRole.roleFullRightsIsNotDeleted(responseForRoleDeleting);
+
+    }
+
+    @Feature("Role")
+    @Story("Удаление роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Удаление роли Нет прав")
+    @Description("Тест пытается удалить роль Нет прав")
+    @Test
+    public void testDeleteNoRightsRoleIsForbidden(){
+
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.NO_RIGHTS.roleUUID);
+        AssertionsRole.roleNoRightsIsNotDeleted(responseForRoleDeleting);
+
+    }
 }
