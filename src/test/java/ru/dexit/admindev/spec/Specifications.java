@@ -7,13 +7,14 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.apache.http.HttpStatus;
 import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.helpers.CustomAllureListener;
 
 import static io.restassured.RestAssured.given;
 import static java.util.concurrent.TimeUnit.*;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static io.restassured.RestAssured.responseSpecification;
 
 public class Specifications extends TestBase {
 
@@ -27,9 +28,9 @@ public class Specifications extends TestBase {
 
         return given()
                 .filter(CustomAllureListener.withCustomTemplates())
+//                .log().all()
                 .header("Authorization", "Bearer " + TOKEN)
                 .header("Content-Type", "application/json")
-//                .log().all()
                 ;
     }
 
@@ -62,15 +63,16 @@ public class Specifications extends TestBase {
         return new ResponseSpecBuilder()
                 .log(LogDetail.STATUS)
                 .expectContentType(ContentType.JSON)
-                .expectStatusCode(200)
+                .expectStatusCode(HttpStatus.SC_OK)
                 .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
                 .build();
     }
 
-    public static ResponseSpecification responseSpecOK200EmptyBody(){
+    public static ResponseSpecification responseSpecOK200EmptyStringBody(){
         return new ResponseSpecBuilder()
                 .log(LogDetail.STATUS)
-                .expectStatusCode(200)
+                .expectBody(equalTo(""))
+                .expectStatusCode(HttpStatus.SC_OK)
                 .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
                 .build();
     }

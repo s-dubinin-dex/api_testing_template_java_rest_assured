@@ -11,7 +11,6 @@ import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.Matchers.empty;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionsEmployee {
@@ -73,13 +72,6 @@ public class AssertionsEmployee {
 
         List<ODataEmployeeResponseModel> responseData = response.jsonPath().get("value");
 
-    }
-
-    public static void employeeDeletedSuccessfully(Response response){
-
-        // Check response body
-
-        response.then().assertThat().body(empty());
     }
 
     public static void employeeIsNotCreatedInvalidName(Response response){
@@ -329,8 +321,6 @@ public class AssertionsEmployee {
         assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
 
     }
-
-    // TODO: подумать о том, чтобы вынести проверку времени ответа в отдельный класс AssertionsCommon или AssertionsBase и сделать ассерт в AfterEach
 
     public static void employeeIsNotCreatedWithInvalidNameRefactor(Response response, String title, String errorCode0){
 

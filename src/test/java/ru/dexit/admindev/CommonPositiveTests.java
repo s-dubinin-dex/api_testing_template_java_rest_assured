@@ -2,7 +2,6 @@ package ru.dexit.admindev;
 
 import io.qameta.allure.*;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
@@ -63,12 +62,11 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест изменяет сотрудника валидными параметрами")
     @Test
     public void testUpdateEmployee(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
-
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(faker.name().fullName())
@@ -86,12 +84,11 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест генерирует приглашение с новым токеном активации валидными параметрами")
     @Test
     public void testUpdateInvitation(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
-
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
         Response response = CoreApiMethodsEmployee.updateInvitation(responseBodyCreation.id);
 
         AssertionsEmployee.invitationUpdatedSuccessfully(response, responseBodyCreation);
@@ -118,15 +115,12 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Удаление сотрудника с валидными данными")
     @Description("Тест удаляет сотрудника с валидными данными")
     public void testDeleteEmployee(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyBody());
-
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyStringBody());
         Response response = CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
-
-        AssertionsEmployee.employeeDeletedSuccessfully(response);
     }
 
     @Test
@@ -151,12 +145,11 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Изменение роли с валидными данными")
     @Description("Тест изменяет роль с валидными данными")
     public void testUpdateRole(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
-
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
                 .policies(DataGenerator.getDefaultPolicies())
@@ -174,15 +167,13 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Удаление роли с валидными данными")
     @Description("Тест удаляет роль с валидными данными")
     public void testDeleteRole() {
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyBody());
-
         AddRoleRequestModel requestBodyForAddingRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForAddingRole = CoreApiMethodsRole.addRole(requestBodyForAddingRole);
         RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
 
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyStringBody());
         Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
 
-        AssertionsRole.roleDeletedSuccessfully(response);
     }
     @Test
     @Feature("Role")

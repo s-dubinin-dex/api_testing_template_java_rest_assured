@@ -7,7 +7,6 @@ import ru.dexit.admindev.models.role.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.Matchers.empty;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionsRole {
@@ -46,17 +45,6 @@ public class AssertionsRole {
         assertEquals(requestBodyPolicies, responseBodyPolicies, "Role policies in response is not equal to role policies in request");
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
         assertNull(responseBody.deletedUtc, "deletedUtc is not null");
-
-        // Check response time
-
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
-
-    }
-
-    public static void roleDeletedSuccessfully(Response response){
-
-        // Check response body
-        response.then().assertThat().body(empty());
 
     }
 
