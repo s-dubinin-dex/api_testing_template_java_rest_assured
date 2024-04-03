@@ -2,6 +2,7 @@ package ru.dexit.admindev;
 
 import io.qameta.allure.*;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
@@ -18,8 +19,11 @@ import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.RoleCommonResponseModel;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
+import ru.dexit.admindev.spec.Specifications;
 
 import static ru.dexit.admindev.data.DataGenerator.*;
+
+
 
 @DisplayName("Общие позитивные тесты. Smoke tests.")
 public class CommonPositiveTests extends TestBase{
@@ -31,10 +35,11 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Авторизация и получение токена")
     @Description("Тест проходит авторизацию и проверяет получение токена")
     public void testAuthorizationAndGettingToken(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsIdentity.connectToken();
-        AssertionsIdentity.authorizationSuccessfully(response);
 
+        AssertionsIdentity.authorizationSuccessfully(response);
     }
 
     @Test
@@ -44,11 +49,12 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Создание сотрудника с валидными параметрами")
     @Description("Тест создаёт сотрудника с валидными параметрами")
     public void testAddEmployee(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBody = DataGenerator.getRandomAddEmployeeRequestModel();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
-        AssertionsEmployee.employeeAddedSuccessfully(response, requestBody);
 
+        AssertionsEmployee.employeeAddedSuccessfully(response, requestBody);
     }
     @Feature("Employee")
     @Story("Изменение сотрудника")
@@ -57,6 +63,7 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест изменяет сотрудника валидными параметрами")
     @Test
     public void testUpdateEmployee(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
@@ -67,10 +74,9 @@ public class CommonPositiveTests extends TestBase{
                 .name(faker.name().fullName())
                 .roleId(Role.FULL_READ.roleUUID)
                 .build();
-
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
-        AssertionsEmployee.employeeUpdatedSuccessfully(response, requestBody, responseBodyCreation);
 
+        AssertionsEmployee.employeeUpdatedSuccessfully(response, requestBody, responseBodyCreation);
     }
 
     @Feature("Employee")
@@ -80,12 +86,14 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест генерирует приглашение с новым токеном активации валидными параметрами")
     @Test
     public void testUpdateInvitation(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
         Response response = CoreApiMethodsEmployee.updateInvitation(responseBodyCreation.id);
+
         AssertionsEmployee.invitationUpdatedSuccessfully(response, responseBodyCreation);
     }
 
@@ -96,11 +104,11 @@ public class CommonPositiveTests extends TestBase{
     @Description("Тест запрашивает данные через протокол oData")
     @Test
     public void testGetODataEmployee(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsEmployee.oDataEmployee();
 
         AssertionsEmployee.oDataEmployeeReturnsData(response);
-
     }
 
     @Test
@@ -110,14 +118,15 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Удаление сотрудника с валидными данными")
     @Description("Тест удаляет сотрудника с валидными данными")
     public void testDeleteEmployee(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyBody());
 
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
         Response response = CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
-        AssertionsEmployee.employeeDeletedSuccessfully(response);
 
+        AssertionsEmployee.employeeDeletedSuccessfully(response);
     }
 
     @Test
@@ -127,12 +136,12 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Создание роли с валидными данными")
     @Description("Тест создаёт роль с валидными данными")
     public void testAddRole(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBody = DataGenerator.getRandomAddRoleRequestModel();
         Response response = CoreApiMethodsRole.addRole(requestBody);
 
         AssertionsRole.roleAddedSuccessfully(response, requestBody);
-
     }
 
     @Test
@@ -142,6 +151,7 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Изменение роли с валидными данными")
     @Description("Тест изменяет роль с валидными данными")
     public void testUpdateRole(){
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
@@ -152,8 +162,8 @@ public class CommonPositiveTests extends TestBase{
                 .policies(DataGenerator.getDefaultPolicies())
                 .id(responseBodyAddRole.id)
                 .build();
-
         Response response = CoreApiMethodsRole.updateRole(requestBody);
+
         AssertionsRole.roleUpdatedSuccessfully(response, requestBody);
     }
 
@@ -164,14 +174,15 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Удаление роли с валидными данными")
     @Description("Тест удаляет роль с валидными данными")
     public void testDeleteRole() {
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyBody());
 
         AddRoleRequestModel requestBodyForAddingRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForAddingRole = CoreApiMethodsRole.addRole(requestBodyForAddingRole);
         RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
 
         Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
-        AssertionsRole.roleDeletedSuccessfully(response);
 
+        AssertionsRole.roleDeletedSuccessfully(response);
     }
     @Test
     @Feature("Role")
@@ -180,10 +191,11 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Получение списка полиcи")
     @Description("Тест получает список доступных полиси для настройки ролей")
     public void testGetPolicies() {
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsRole.getPolicies();
-        AssertionsRole.policiesGotSuccessfully(response);
 
+        AssertionsRole.policiesGotSuccessfully(response);
     }
 
 
@@ -194,10 +206,10 @@ public class CommonPositiveTests extends TestBase{
     @DisplayName("Запрос данных через протокол OData")
     @Description("Тест запрашивает данные через протокол oData")
     public void testGetODataRole() {
+        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsRole.getODataRole();
+
         AssertionsRole.oDataRoleReturnsData(response);
-
     }
-
 }

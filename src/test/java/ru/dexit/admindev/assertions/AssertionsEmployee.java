@@ -11,6 +11,7 @@ import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.Matchers.empty;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionsEmployee {
@@ -18,10 +19,6 @@ public class AssertionsEmployee {
     public static void employeeAddedSuccessfully(Response response, AddEmployeeRequestModel requestBody){
 
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
-
-        // Check status code
-
-        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
 
         // Check response body
 
@@ -34,18 +31,11 @@ public class AssertionsEmployee {
         assertEquals(requestBody.email.toLowerCase(), responseBody.email, "email in response is not equal to email in request");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
-        // Check response time
-
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
     public static void employeeUpdatedSuccessfully(Response response, UpdateEmployeeRequestModel requestBody, EmployeeCommonResponseModel responseBodyCreation){
 
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
-
-        // Check status code
-
-        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
 
         // Check response body
 
@@ -58,17 +48,10 @@ public class AssertionsEmployee {
         assertEquals(responseBodyCreation.email, responseBody.email, "email in response is not equal to Employee email");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
-        // Check response time
-
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
     public static void invitationUpdatedSuccessfully(Response response, EmployeeCommonResponseModel responseBodyCreation){
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
-
-        // Check status code
-
-        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
 
         // Check response body
 
@@ -81,37 +64,22 @@ public class AssertionsEmployee {
         assertEquals(responseBodyCreation.email, responseBody.email, "email in response is not equal to Employee email");
         assertNull(responseBody.activationDate, "activationDate is not equal to null");
 
-        // Check response time
-
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
 
     public static void oDataEmployeeReturnsData(Response response){
 
-        // Check status code
-
-        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
-
         // Check response body
 
         List<ODataEmployeeResponseModel> responseData = response.jsonPath().get("value");
 
-        // Check response time
-
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
     }
 
     public static void employeeDeletedSuccessfully(Response response){
 
-        // Check status code
+        // Check response body
 
-        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
-
-        // Check response time
-
-        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
-
+        response.then().assertThat().body(empty());
     }
 
     public static void employeeIsNotCreatedInvalidName(Response response){
