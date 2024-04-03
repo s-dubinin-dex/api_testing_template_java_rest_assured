@@ -83,7 +83,6 @@ public class DataGenerator {
 
     public static Stream<Arguments> getInvalidEmployeeNames(){
         return Stream.of(
-                arguments(""),
                 arguments(generateRandomString(rusLettersLowerCase, 2)),
                 arguments(generateRandomString(rusLettersLowerCase, 51)),
                 arguments(generateRandomString(rusLetters, 5) + "!" + generateRandomString(rusLetters, 5)),

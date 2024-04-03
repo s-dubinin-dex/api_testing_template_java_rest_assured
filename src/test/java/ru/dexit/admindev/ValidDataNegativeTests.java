@@ -28,6 +28,25 @@ public class ValidDataNegativeTests extends TestBase{
     @Feature("Employee")
     @Story("Создание сотрудника")
     @Severity(SeverityLevel.MINOR)
+    @DisplayName("Создание сотрудника с пустым именем")
+    @Description("Тест пытается создать сотрудника с пустым именем")
+    @Test
+    public void testAddEmployeeWithEmptyName(){
+
+        AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
+                .name("")
+                .roleId(Role.FULL_WRITE.roleUUID)
+                .email(faker.internet().emailAddress())
+                .build();
+
+        Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
+
+        AssertionsEmployee.employeeIsNotCreatedWithEmptyNameRefactor(response, "Request Validation Error", "validations.Required", "validations.InvalidName");
+    }
+
+    @Feature("Employee")
+    @Story("Создание сотрудника")
+    @Severity(SeverityLevel.MINOR)
     @DisplayName("Создание сотрудника с невалидными именами")
     @Description("Тест пытается создать сотрудника с невалидными именами")
     @ParameterizedTest
@@ -42,7 +61,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
 
-        AssertionsEmployee.employeeIsNotCreatedInvalidName(response);
+        AssertionsEmployee.employeeIsNotCreatedWithInvalidNameRefactor(response, "Request Validation Error", "validations.InvalidName");
     }
 
     @Feature("Employee")
@@ -200,6 +219,29 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
         AssertionsEmployee.employeeIsNotUpdatedAdministratorIsReadOnly(response);
+
+    }
+
+    @Feature("Employee")
+    @Story("Изменение сотрудника")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение сотрудника c пустым именем")
+    @Description("Тест изменяет сотрудника c пустым именем")
+    @Test
+    public void testUpdateEmployeeWithEmptyName(){
+
+        AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
+        Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
+        EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
+
+        UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
+                .id(responseBodyForCreation.id)
+                .name("")
+                .roleId(Role.FULL_READ.roleUUID)
+                .build();
+
+        Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
+        AssertionsEmployee.employeeIsNotUpdatedInvalidName(response);
 
     }
 
@@ -377,6 +419,23 @@ public class ValidDataNegativeTests extends TestBase{
     @Feature("Role")
     @Story("Создание роли")
     @Severity(SeverityLevel.MINOR)
+    @DisplayName("Создание роли с пустым именем")
+    @Description("Тест пытается создать роль с пустым именем")
+    @Test
+    public void testAddRoleWithEmptyName(){
+
+        AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
+                .name("")
+                .policies(DataGenerator.getDefaultPolicies())
+                .build();
+        Response response = CoreApiMethodsRole.addRole(requestBody);
+
+        AssertionsRole.roleIsNotCreatedInvalidName(response);
+    }
+
+    @Feature("Role")
+    @Story("Создание роли")
+    @Severity(SeverityLevel.MINOR)
     @DisplayName("Создание роли с невалидными именами")
     @Description("Тест пытается создать роль с невалидными именами")
     @ParameterizedTest
@@ -429,6 +488,28 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response response = CoreApiMethodsRole.addRole(requestBody);
         AssertionsRole.roleIsNotCreatedWithInvalidPolicies(response);
+    }
+
+    @Feature("Role")
+    @Story("Изменение роли")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Изменение роли с пустым именем")
+    @Description("Тест пытается измененить роль с пустым именем")
+    @Test
+    public void testUpdateRoleWithEmptyName(){
+
+        AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
+        Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
+        RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
+
+        UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
+                .name("")
+                .policies(DataGenerator.getDefaultPolicies())
+                .id(responseBodyForCreation.id)
+                .build();
+        Response response = CoreApiMethodsRole.updateRole(requestBody);
+
+        AssertionsRole.roleIsNotUpdatedInvalidName(response);
     }
 
     @Feature("Role")

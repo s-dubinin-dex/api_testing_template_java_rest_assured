@@ -364,4 +364,39 @@ public class AssertionsEmployee {
 
     // TODO: подумать о том, чтобы вынести проверку времени ответа в отдельный класс AssertionsCommon или AssertionsBase и сделать ассерт в AfterEach
 
+    public static void employeeIsNotCreatedWithInvalidNameRefactor(Response response, String title, String errorCode0){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // Check response body
+
+        assertEquals(title, response.jsonPath().get("title"));
+        assertEquals(errorCode0, response.jsonPath().getString("errors.name[0].errorCode"));
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
+    public static void employeeIsNotCreatedWithEmptyNameRefactor(Response response, String title, String errorCode0, String errorCode1){
+
+        // Check status code
+
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.statusCode(), "Incorrect status code");
+
+        // Check response body
+
+        assertEquals(title, response.jsonPath().get("title"));
+        assertEquals(errorCode0, response.jsonPath().getString("errors.name[0].errorCode"));
+        assertEquals(errorCode1, response.jsonPath().getString("errors.name[1].errorCode"));
+
+        // Check response time
+
+        assertTrue(response.getTimeIn(TimeUnit.MILLISECONDS) < 500, "Response time more than 500 ms, actual is " + response.time());
+
+    }
+
 }
