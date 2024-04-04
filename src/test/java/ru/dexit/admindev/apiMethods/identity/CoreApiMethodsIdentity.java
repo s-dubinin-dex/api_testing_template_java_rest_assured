@@ -1,8 +1,9 @@
-package ru.dexit.admindev.helpers;
+package ru.dexit.admindev.apiMethods.identity;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.helpers.CustomAllureListener;
 import ru.dexit.admindev.spec.RequestSpecifications;
 import ru.dexit.admindev.spec.SpecificationsServer;
 

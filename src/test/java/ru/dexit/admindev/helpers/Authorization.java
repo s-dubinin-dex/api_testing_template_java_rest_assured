@@ -1,6 +1,7 @@
 package ru.dexit.admindev.helpers;
 
 
+import ru.dexit.admindev.apiMethods.identity.CoreApiMethodsIdentity;
 
 public class Authorization {
 

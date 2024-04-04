@@ -1,4 +1,4 @@
-package ru.dexit.admindev.helpers;
+package ru.dexit.admindev.apiMethods.admin;
 
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;

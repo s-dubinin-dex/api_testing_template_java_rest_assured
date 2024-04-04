@@ -17,7 +17,7 @@ public class AssertionsEmployee {
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
 
         // Check response body
-        // TODO: Переделать на assertThat, класс с ролями тоже
+        // TODO: Переделать на assertThat, класс с ролями и идентити тоже
         assertFalse(responseBody.id.isEmpty(), "Employee ID is empty!");
         assertEquals(requestBody.name, responseBody.name, "Employee name in response is equal to name in request");
         assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
