@@ -18,7 +18,9 @@ import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.RoleCommonResponseModel;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
-import ru.dexit.admindev.spec.Specifications;
+import ru.dexit.admindev.spec.RequestSpecifications;
+import ru.dexit.admindev.spec.ResponseSpecifications;
+import ru.dexit.admindev.spec.SpecificationsServer;
 
 import java.util.List;
 
@@ -36,7 +38,8 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidEmployeeNames")
     public void testAddEmployeeWithValidNames(String name){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(name)
@@ -55,7 +58,9 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест создаёт сотрудника с существуюшим именем")
     @Test
     public void testAddEmployeeWithExistName(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
+
         String name = faker.name().fullName();
 
         AddEmployeeRequestModel requestBodyFirstEmployee = AddEmployeeRequestModel.builder()
@@ -84,7 +89,8 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoles")
     public void testAddEmployeeWithValidRoles(String role){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().fullName())
@@ -104,7 +110,8 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidEmails")
     public void testAddEmployeeWithDifferentEmails(String email){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().fullName())
@@ -123,11 +130,13 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест изменяет сотрудника c валидным ID")
     @Test
     public void testUpdateEmployeeWithValidId(){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(faker.name().fullName())
@@ -146,11 +155,13 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidEmployeeNames")
     public void testUpdateEmployeeWithValidName(String name){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(name)
@@ -169,11 +180,13 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoles")
     public void testUpdateEmployeeWithValidRole(String role){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(faker.name().fullName())
@@ -190,11 +203,13 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест генерирует приглашение с новым токеном активации с валидным ID")
     @Test
     public void testUpdateInvitationWithValidRole(){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         Response response = CoreApiMethodsEmployee.updateInvitation(responseBodyCreation.id);
 
         AssertionsEmployee.invitationUpdatedSuccessfully(response, responseBodyCreation);
@@ -207,7 +222,9 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест запрашивает данные через протокол oData без передачи параметра IncludeDeleted")
     @Test
     public void testGetODataEmployeeWithoutIncludeDeleteParam(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsEmployee.oDataEmployee();
 
@@ -221,7 +238,8 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = True")
     @Test
     public void testGetODataEmployeeWithIncludeDeleteParamEqualTrue(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsEmployee.oDataEmployeeWithIncludeDeletedParameter(true);
 
@@ -235,7 +253,8 @@ public class ExtendedPositiveTests extends TestBase{
     @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = False")
     @Test
     public void testGetODataEmployeeWithIncludeDeleteParamEqualFalse(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsEmployee.oDataEmployeeWithIncludeDeletedParameter(false);
 
@@ -249,11 +268,12 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Удаление сотрудника с валидным ID")
     @Description("Тест удаляет сотрудника с валидным ID")
     public void testDeleteEmployeeWithValidId(){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
         AddEmployeeRequestModel requestBodyCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyCreation);
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyStringBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200EmptyStringBody());
         Response response = CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
     }
 
@@ -265,7 +285,8 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoleNames")
     public void testAddRoleWithValidNames(String name){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(name)
@@ -284,7 +305,8 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getReadPoliciesStream")
     public void testAddRoleWithValidReadPolicies(String policy){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
@@ -303,7 +325,8 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getWritePoliciesStream")
     public void testAddRoleWithValidWritePolicies(String policy){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
@@ -321,7 +344,8 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Создание роли со всеми политиками")
     @Description("Тест создаёт роль со всеми политиками")
     public void testAddRoleWithAllPolicies(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + "_" + DataGenerator.getSalt())
@@ -340,11 +364,13 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getValidRoleNames")
     public void testUpdateRoleWithValidNames(String name){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(name)
                 .policies(DataGenerator.getDefaultPolicies())
@@ -363,11 +389,13 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getReadPoliciesStream")
     public void testUpdateRoleWithValidReadPolicies(String policy){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
                 .policies(List.of(policy))
@@ -386,11 +414,13 @@ public class ExtendedPositiveTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getWritePoliciesStream")
     public void testUpdateRoleWithValidWritePolicies(String policy){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
                 .policies(List.of(policy))
@@ -408,11 +438,13 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Изменение роли со всеми политиками")
     @Description("Тест изменяет роль со всеми политиками")
     public void testUpdateRoleWithAllPolicies(){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
                 .policies(DataGenerator.getAllPolicies())
@@ -430,11 +462,13 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Изменение роли с передачей существующего id")
     @Description("Тест изменяет роль с передачей существующего id")
     public void testUpdateRoleWithExistingID(){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddRoleRequestModel requestBodyAddRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseAddRole = CoreApiMethodsRole.addRole(requestBodyAddRole);
         RoleCommonResponseModel responseBodyAddRole = responseAddRole.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession()+ "_" + generateRandomString(engLetters, 6))
                 .policies(DataGenerator.getDefaultPolicies())
@@ -453,11 +487,13 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Удаление роли с валидным id")
     @Description("Тест удаляет роль с валидными данными")
     public void testDeleteRoleWithValidData() {
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+
         AddRoleRequestModel requestBodyForAddingRole = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForAddingRole = CoreApiMethodsRole.addRole(requestBodyForAddingRole);
         RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200EmptyStringBody());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200EmptyStringBody());
         Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
     }
 
@@ -468,7 +504,8 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Получение списка полиcи")
     @Description("Тест получает список доступных полиси для настройки ролей")
     public void testGetPoliciesWithValidData() {
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsRole.getPolicies();
 
@@ -482,7 +519,8 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Запрос данных через протокол OData без передачи параметра IncludeDeleted")
     @Description("Тест запрашивает данные через протокол oData без передачи параметра IncludeDeleted")
     public void testGetODataRoleWithoutIncludeDeletedParam() {
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsRole.getODataRole();
 
@@ -496,7 +534,8 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Запрос данных через протокол OData c передачей параметра IncludeDeleted = True")
     @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = True")
     public void testGetODataRoleWithIncludeDeletedParamEqualTrue() {
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsRole.getODataRoleWithIncludeDeletedParameter(true);
 
@@ -510,7 +549,8 @@ public class ExtendedPositiveTests extends TestBase{
     @DisplayName("Запрос данных через протокол OData c передачей параметра IncludeDeleted = False")
     @Description("Тест запрашивает данные через протокол oData c передачей параметра IncludeDeleted = False")
     public void testGetODataRoleWithIncludeDeletedParamEqualFalse() {
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         Response response = CoreApiMethodsRole.getODataRoleWithIncludeDeletedParameter(false);
 

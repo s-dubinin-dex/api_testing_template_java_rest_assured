@@ -1,17 +1,23 @@
 package ru.dexit.admindev.helpers;
 
 import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
-import ru.dexit.admindev.spec.Specifications;
+import ru.dexit.admindev.spec.SpecificationsServer;
 
 public class CoreApiMethodsEmployee extends TestBase {
+
+
+    // TODO: Вынести SetBaseUrl в базовый метод
     @Step("Создание сотрудника")
     public static Response addEmployee(AddEmployeeRequestModel body){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .body(body)
                 .when()
                 .post("/Employee/AddEmployee")
@@ -22,7 +28,9 @@ public class CoreApiMethodsEmployee extends TestBase {
     @Step("Обновление данных сотрудника")
     public static Response updateEmployee(UpdateEmployeeRequestModel body){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .body(body)
                 .when()
                 .put("/Employee/UpdateEmployee")
@@ -32,7 +40,9 @@ public class CoreApiMethodsEmployee extends TestBase {
     @Step("Генерация нового приглашения с новым токеном активации")
     public static Response updateInvitation(String employeeId){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .body("\"" + employeeId + "\"")
                 .when()
                 .put("/Employee/UpdateInvitation")
@@ -42,7 +52,9 @@ public class CoreApiMethodsEmployee extends TestBase {
     @Step("Получение данных через протокол oData")
     public static Response oDataEmployee(){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .when()
                 .get("/odata/Employee")
                 .andReturn();
@@ -51,7 +63,9 @@ public class CoreApiMethodsEmployee extends TestBase {
     @Step("Получение данных через протокол oData c параметром IncludeDeleted")
     public static Response oDataEmployeeWithIncludeDeletedParameter(Boolean includeDeleted){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .param("includeDeleted", includeDeleted)
                 .when()
                 .get("/odata/Employee")
@@ -61,7 +75,9 @@ public class CoreApiMethodsEmployee extends TestBase {
     @Step("Удаление сотрудника")
     public static Response deleteEmployee(String employeeId){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .queryParam("employeeId", employeeId)
                 .when()
                 .delete("/Employee/DeleteEmployee")

@@ -1,9 +1,10 @@
 package ru.dexit.admindev.helpers;
 
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.spec.RequestSpecifications;
+import ru.dexit.admindev.spec.SpecificationsServer;
 
 import static io.restassured.RestAssured.given;
 
@@ -11,8 +12,9 @@ public class CoreApiMethodsIdentity extends TestBase {
 
     @Step("Авторизация и получение токена")
     public static Response connectToken(){
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecification());
 
-        RestAssured.baseURI = URL_IDENTITY;
+        SpecificationsServer.setBaseUrl(URL_IDENTITY);
 
         return given()
                 .filter(CustomAllureListener.withCustomTemplates())

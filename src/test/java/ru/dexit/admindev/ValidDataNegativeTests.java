@@ -18,7 +18,9 @@ import ru.dexit.admindev.models.errors.ErrorModel;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.RoleCommonResponseModel;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
-import ru.dexit.admindev.spec.Specifications;
+import ru.dexit.admindev.spec.RequestSpecifications;
+import ru.dexit.admindev.spec.ResponseSpecifications;
+import ru.dexit.admindev.spec.SpecificationsServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +54,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается создать сотрудника с пустым именем")
     @Test
     public void testAddEmployeeWithEmptyName(){
-
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name("")
@@ -78,7 +80,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeNames")
     public void testAddEmployeeWithInvalidName(String name){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(name)
@@ -102,7 +105,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
     public void testAddEmployeeWithInvalidRole(String roleUUID){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
@@ -123,7 +127,8 @@ public class ValidDataNegativeTests extends TestBase{
     @DisplayName("Создание сотрудника с ролью \"Полные права\"")
     @Description("Тест пытается создать сотрудника с ролью \"Полные права\"")
     public void testAddEmployeeWithRoleFullRights(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
@@ -144,7 +149,8 @@ public class ValidDataNegativeTests extends TestBase{
     @DisplayName("Создание сотрудника с ID несуществующей роли")
     @Description("Тест пытается создать сотрудника с ID несуществующей роли")
     public void testAddEmployeeWithNotExistRole(){
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
@@ -165,13 +171,14 @@ public class ValidDataNegativeTests extends TestBase{
     @DisplayName("Создание сотрудника с существующим email")
     @Description("Тест пытается создать сотрудника с существующим email")
     public void testAddEmployeeWithExistEmail(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
         EmployeeCommonResponseModel responseCreationModel = responseCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec409());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec409());
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
                 .roleId(Role.FULL_READ.roleUUID)
@@ -192,7 +199,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmails")
     public void testAddEmployeeWithInvalidEmail(String email){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
@@ -215,7 +223,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmailsExceedLength")
     public void testAddEmployeeWithInvalidEmailExceedLength(String email){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
@@ -238,7 +247,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeIDs")
     public void testUpdateEmployeeWithInvalidId(String id){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(id)
@@ -260,7 +270,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест изменяет сотрудника c несуществующим ID")
     @Test
     public void testUpdateEmployeeWithNotExistId(){
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(faker.internet().uuid())
                 .name(faker.name().firstName())
@@ -279,7 +290,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест изменяет сотрудника c ID администратора")
     @Test
     public void testUpdateEmployeeWithAdministratorId(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(Employee.ADMINISTRATOR.id)
@@ -300,13 +312,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест изменяет сотрудника c пустым именем")
     @Test
     public void testUpdateEmployeeWithEmptyName(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
         EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name("")
@@ -328,13 +341,14 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeNames")
     public void testUpdateEmployeeWithInvalidName(String name){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
         EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name(name)
@@ -356,13 +370,14 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
     public void testUpdateEmployeeWithInvalidID(String id){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
         EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name(responseBodyForCreation.name)
@@ -383,13 +398,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Изменение сотруднику роли на \"Полные права\"")
     @Test
     public void testUpdateEmployeeWithFullRightsRoleID(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
         EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name(responseBodyForCreation.name)
@@ -409,13 +425,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Изменение сотруднику роли на роль c несуществующим roleID")
     @Test
     public void testUpdateEmployeeWithNotExistRoleID(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddEmployeeRequestModel requestBodyForCreation = DataGenerator.getRandomAddEmployeeRequestModel();
         Response responseForCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForCreation);
         EmployeeCommonResponseModel responseBodyForCreation = responseForCreation.as(EmployeeCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name(responseBodyForCreation.name)
@@ -436,7 +453,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeIDs")
     public void testUpdateInvitationWithInvalidID(String id){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         Response response = CoreApiMethodsEmployee.updateInvitation(id);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -451,7 +469,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Генерация приглашения сотруднику с несуществующим ID")
     @Test
     public void testUpdateInvitationWithNotExistID(){
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
 
         Response response = CoreApiMethodsEmployee.updateInvitation(faker.internet().uuid());
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -477,7 +496,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidEmployeeIDs")
     public void testDeleteEmployeeWithInvalidID(String id){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         Response response = CoreApiMethodsEmployee.deleteEmployee(id);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -493,7 +513,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Удаление сотрудника с несуществующим ID")
     @Test
     public void testDeleteEmployeeWithNotExistID(){
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
 
         Response response = CoreApiMethodsEmployee.deleteEmployee(faker.internet().uuid());
 
@@ -508,7 +529,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Попытка удаления сотрудника с полными правами")
     @Test
     public void testDeleteEmployeeWithFullRightsIsForbidden(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
         Response response = CoreApiMethodsEmployee.deleteEmployee(Employee.ADMINISTRATOR.id);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -523,7 +545,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается создать роль с пустым именем")
     @Test
     public void testAddRoleWithEmptyName(){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name("")
@@ -545,7 +568,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleNames")
     public void testAddRoleWithInvalidName(String name){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(name)
@@ -565,13 +589,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается создать роль с существующим именем")
     @Test
     public void testAddRoleWithExistingName(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec409());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec409());
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(responseBodyForCreation.name)
                 .policies(DataGenerator.getDefaultPolicies())
@@ -589,7 +614,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается создать роль без политик")
     @Test
     public void testAddRoleWithoutPolicies(){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + DataGenerator.getSalt())
@@ -610,7 +636,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidPoliciesStream")
     public void testAddRoleWithInvalidPolicies(List<String> policies){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddRoleRequestModel requestBody = AddRoleRequestModel.builder()
                 .name(faker.company().profession() + DataGenerator.getSalt())
@@ -630,13 +657,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается измененить роль с пустым именем")
     @Test
     public void testUpdateRoleWithEmptyName(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name("")
                 .policies(DataGenerator.getDefaultPolicies())
@@ -658,12 +686,14 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleNames")
     public void testUpdateRoleWithInvalidName(String name){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
+
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(name)
                 .policies(DataGenerator.getDefaultPolicies())
@@ -683,7 +713,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается изменить роль существующим именем")
     @Test
     public void testUpdateRoleWithExistingName(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
@@ -693,7 +724,7 @@ public class ValidDataNegativeTests extends TestBase{
         Response responseForUpdate = CoreApiMethodsRole.addRole(requestBodyForUpdate);
         RoleCommonResponseModel responseBodyForUpdate = responseForUpdate.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec409());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec409());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(responseBodyForCreation.name)
                 .policies(DataGenerator.getDefaultPolicies())
@@ -713,13 +744,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается измененить роль, записывая пустое тело с политиками")
     @Test
     public void testUpdateRoleWithoutPolicies(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(responseBodyForCreation.name)
                 .policies(new ArrayList<>())
@@ -741,12 +773,14 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidPoliciesStream")
     public void testUpdateRoleWithInvalidPolicies(List<String> policies){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
+
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(responseBodyForCreation.name)
                 .policies(policies)
@@ -768,12 +802,14 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
     public void testUpdateRoleWithInvalidRoleId(String id){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
+
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(responseBodyForCreation.name)
                 .policies(responseBodyForCreation.policies)
@@ -794,13 +830,14 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается измененить роль с несуществующим RoleId")
     @Test
     public void testUpdateRoleWithNotExistRoleId(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyForCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForCreation = CoreApiMethodsRole.addRole(requestBodyForCreation);
         RoleCommonResponseModel responseBodyForCreation = responseForCreation.as(RoleCommonResponseModel.class);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(responseBodyForCreation.name)
                 .policies(responseBodyForCreation.policies)
@@ -820,7 +857,9 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается изменить роль Полные права")
     @Test
     public void testUpdateFullRightsRole(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
+
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession() + DataGenerator.getSalt())
                 .policies(DataGenerator.getDefaultPolicies())
@@ -840,7 +879,9 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается изменить роль Нет прав")
     @Test
     public void testUpdateNoRightsRole(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
+
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession() + DataGenerator.getSalt())
                 .policies(DataGenerator.getDefaultPolicies())
@@ -860,7 +901,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается удалить роль, назначенную на сотрудника")
     @Test
     public void testDeleteRoleAssignedToEmployee(){
-        Specifications.installResponseSpecification(Specifications.responseSpecOK200JSONBody());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200JSONBody());
 
         AddRoleRequestModel requestBodyForRoleCreation = DataGenerator.getRandomAddRoleRequestModel();
         Response responseForRoleCreation = CoreApiMethodsRole.addRole(requestBodyForRoleCreation);
@@ -874,7 +916,7 @@ public class ValidDataNegativeTests extends TestBase{
 
         Response responseForEmployeeCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForEmployeeCreation);
 
-        Specifications.installResponseSpecification(Specifications.responseSpec409());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec409());
         Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(responseBodyForRoleCreation.id);
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);
 
@@ -889,7 +931,8 @@ public class ValidDataNegativeTests extends TestBase{
     @ParameterizedTest
     @MethodSource("ru.dexit.admindev.data.DataGenerator#getInvalidRoleIDs")
     public void testDeleteRoleWithInvalidID(String id){
-        Specifications.installResponseSpecification(Specifications.responseSpec400());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(id);
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);
@@ -905,7 +948,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается удалить роль c несуществующим ID")
     @Test
     public void testDeleteRoleWithNotExistID(){
-        Specifications.installResponseSpecification(Specifications.responseSpec404());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec404());
 
         Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(faker.internet().uuid());
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);
@@ -920,7 +964,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается удалить роль Полные права")
     @Test
     public void testDeleteFullRightsRoleIsForbidden(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
         Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.FULL_RIGHTS.roleUUID);
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);
@@ -935,7 +980,8 @@ public class ValidDataNegativeTests extends TestBase{
     @Description("Тест пытается удалить роль Нет прав")
     @Test
     public void testDeleteNoRightsRoleIsForbidden(){
-        Specifications.installResponseSpecification(Specifications.responseSpec412());
+        SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
+        SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
         Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.NO_RIGHTS.roleUUID);
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);

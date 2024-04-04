@@ -1,17 +1,22 @@
 package ru.dexit.admindev.helpers;
 
 import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
-import ru.dexit.admindev.spec.Specifications;
+import ru.dexit.admindev.spec.SpecificationsServer;
 
 public class CoreApiMethodsRole extends TestBase {
+    // TODO: Вынести SetBaseUrl в базовый метод
+
     @Step("Создание роли")
     public static Response addRole(AddRoleRequestModel body){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .body(body)
                 .when()
                 .post("/Role/AddRole")
@@ -22,7 +27,9 @@ public class CoreApiMethodsRole extends TestBase {
     @Step("Изменение роли")
     public static Response updateRole(UpdateRoleRequestModel body){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .body(body)
                 .when()
                 .put("/Role/UpdateRole")
@@ -33,7 +40,9 @@ public class CoreApiMethodsRole extends TestBase {
     @Step("Удаление роли")
     public static Response deleteRole(String id){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .queryParam("id", id)
                 .when()
                 .delete("/Role/DeleteRole")
@@ -42,7 +51,10 @@ public class CoreApiMethodsRole extends TestBase {
 
     @Step("Получение списка доступных полиси")
     public static Response getPolicies(){
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .when()
                 .get("/Role/GetPolicies")
                 .andReturn();
@@ -51,14 +63,18 @@ public class CoreApiMethodsRole extends TestBase {
     @Step("Получение данных через протокол oData")
     public static Response getODataRole(){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .get("/odata/Role")
                 .andReturn();
     }
     @Step("Получение данных через протокол oData")
     public static Response getODataRoleWithIncludeDeletedParameter(boolean includeDeleted){
 
-        return Specifications.setBasicRequestSpecification(URL_ADMIN)
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .param("includeDeleted", includeDeleted)
                 .get("/odata/Role")
                 .andReturn();
