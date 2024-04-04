@@ -4,15 +4,15 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.apache.http.HttpStatus;
 import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.helpers.CustomAllureListener;
 
+import static io.restassured.http.ContentType.*;
 import static io.restassured.RestAssured.given;
 import static java.util.concurrent.TimeUnit.*;
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
@@ -39,7 +39,7 @@ public class Specifications extends TestBase {
         return new RequestSpecBuilder()
                 .setBaseUri(url)
                 .addFilter(CustomAllureListener.withCustomTemplates())
-                .setContentType(ContentType.JSON)
+                .setContentType(JSON)
                 .build();
 
     }
@@ -49,7 +49,7 @@ public class Specifications extends TestBase {
         return new RequestSpecBuilder()
                 .setBaseUri(url)
                 .addFilter(CustomAllureListener.withCustomTemplates())
-                .setContentType(ContentType.JSON)
+                .setContentType(JSON)
                 .addHeader("Authorization", "Bearer " + TOKEN)
                 .build();
 
@@ -62,8 +62,8 @@ public class Specifications extends TestBase {
     public static ResponseSpecification responseSpecOK200JSONBody(){
         return new ResponseSpecBuilder()
                 .log(LogDetail.STATUS)
-                .expectContentType(ContentType.JSON)
-                .expectStatusCode(HttpStatus.SC_OK)
+                .expectContentType(JSON)
+                .expectStatusCode(SC_OK)
                 .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
                 .build();
     }
@@ -72,7 +72,40 @@ public class Specifications extends TestBase {
         return new ResponseSpecBuilder()
                 .log(LogDetail.STATUS)
                 .expectBody(equalTo(""))
-                .expectStatusCode(HttpStatus.SC_OK)
+                .expectStatusCode(SC_OK)
+                .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
+                .build();
+    }
+
+    public static ResponseSpecification responseSpec400(){
+        return new ResponseSpecBuilder()
+                .log(LogDetail.STATUS)
+                .expectContentType(JSON)
+                .expectStatusCode(SC_BAD_REQUEST)
+                .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
+                .build();
+    }
+    public static ResponseSpecification responseSpec404(){
+        return new ResponseSpecBuilder()
+                .log(LogDetail.STATUS)
+                .expectContentType(JSON)
+                .expectStatusCode(SC_NOT_FOUND)
+                .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
+                .build();
+    }
+    public static ResponseSpecification responseSpec409(){
+        return new ResponseSpecBuilder()
+                .log(LogDetail.STATUS)
+                .expectContentType(JSON)
+                .expectStatusCode(SC_CONFLICT)
+                .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
+                .build();
+    }
+    public static ResponseSpecification responseSpec412() {
+        return new ResponseSpecBuilder()
+                .log(LogDetail.STATUS)
+                .expectContentType(JSON)
+                .expectStatusCode(SC_PRECONDITION_FAILED)
                 .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
                 .build();
     }

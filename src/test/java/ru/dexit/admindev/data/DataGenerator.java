@@ -228,7 +228,6 @@ public class DataGenerator {
 
     public static Stream<Arguments> getInvalidPoliciesStream(){
         return Stream.of(
-                arguments(new ArrayList<String>()),
                 arguments(List.of("user.write")),
                 arguments(List.of("log.write")),
                 arguments(List.of(faker.name().firstName()))
@@ -278,9 +277,6 @@ public class DataGenerator {
 
         List<String> result = new ArrayList<>();
         result.add(generateRandomString(engLetters, 0) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
-        result.add(generateRandomString(engLetters, 251) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1));
-        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 251) + "." + generateRandomString(engLetters, 1));
-        result.add(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 251));
         result.add(generateRandomString(engLetters, 15));
 
         for (Character specialcharacter: invalidSpecialCharactersForEmail.toCharArray()){
@@ -290,6 +286,14 @@ public class DataGenerator {
         }
 
         return result.stream().map(Arguments::of);
+    }
+
+    public static Stream<Arguments> getInvalidEmailsExceedLength(){
+        return Stream.of(
+                arguments(generateRandomString(engLetters, 251) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 1)),
+                arguments(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 251) + "." + generateRandomString(engLetters, 1)),
+                arguments(generateRandomString(engLetters, 1) + "@" + generateRandomString(engLetters, 1) + "." + generateRandomString(engLetters, 251))
+        );
     }
 
     /*////////////////////////////
