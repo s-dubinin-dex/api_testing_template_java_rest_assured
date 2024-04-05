@@ -1,4 +1,4 @@
-package ru.dexit.admindev;
+package ru.dexit.admindev.tests;
 
 import io.qameta.allure.*;
 import io.restassured.response.Response;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.data.Employee;
 import ru.dexit.admindev.data.Role;
@@ -26,26 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static ru.dexit.admindev.helpers.ErrorDescription.*;
 
 @DisplayName("Негативные тесты с валидными данными (по типу данных)")
-public class ValidDataNegativeTests extends TestBase{
-
-    private final String duplicateKeyEmployeeEmail = "duplicate key value violates unique constraint \"IX_Employee_Email\"";
-    private final String duplicateKeyRoleName = "duplicate key value violates unique constraint \"IX_Role_Name\"";
-    private final String exceptionOfTypeEntityInUseExceptionRoleInfo = "Exception of type 'Shared.Domain.Exceptions.EntityInUseException`1[Admin.Application.Abstraction.Models.Queries.Role.RoleInfo]' was thrown.";
-    private final String exceptionOfTypeEntityNotFoundExceptionEmployeeInfo = "Exception of type 'Shared.Domain.Exceptions.EntityNotFoundException`1[Admin.Application.Abstraction.Models.Queries.Employee.EmployeeInfo]' was thrown.";
-    private final String exceptionOfTypeEntityNotFoundExceptionRoleInfo = "Exception of type 'Shared.Domain.Exceptions.EntityNotFoundException`1[Admin.Application.Abstraction.Models.Queries.Role.RoleInfo]' was thrown.";
-    private final String noAccessRoleIsReadOnly = "NoAccess role is read-only";
-    private final String validationsEditRoleFieldIsRequired = "validations.The editRole field is required.";
-    private final String validationsInvalidName = "validations.InvalidName";
-    private final String validationsInvalidEmail = "validations.InvalidEmail";
-    private final String validationsMaxLengthExceeded = "validations.MaxLengthExceeded";
-    private final String validationsNewEmployeeFieldIsRequired = "validations.The newEmployee field is required.";
-    private final String validationsRequired = "validations.Required";
-    private final String validationsTryingToApplyNonExistentPolicy = "validations.TryingToApplyNonExistentPolicy";
-    private final String validationsUpdateEmployeeFieldIsRequired = "validations.The updateEmployee field is required.";
-    private final String requestValidationError = "Request Validation Error";
-    private final String userWithSuperAdminRoleIsReadOnly = "User with SuperAdmin role is read-only";
+public class ValidDataNegativeTests extends TestBase {
 
     @Feature("Employee")
     @Story("Создание сотрудника")

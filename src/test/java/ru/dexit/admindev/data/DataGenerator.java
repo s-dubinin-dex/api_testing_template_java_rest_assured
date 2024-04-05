@@ -332,4 +332,7 @@ public class DataGenerator {
     public static String getSalt(){
         return generateRandomString(engLetters, 6);
     }
+    public static String generateRandomBearerToken(){
+        return "Bearer " + generateRandomString(engLettersUpperCase + digits, 64);
+    }
 }

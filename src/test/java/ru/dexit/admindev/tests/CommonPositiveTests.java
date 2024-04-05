@@ -1,9 +1,10 @@
-package ru.dexit.admindev;
+package ru.dexit.admindev.tests;
 
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
 import ru.dexit.admindev.assertions.AssertionsIdentity;
 import ru.dexit.admindev.assertions.AssertionsRole;
@@ -25,7 +26,7 @@ import ru.dexit.admindev.spec.SpecificationsServer;
 import static ru.dexit.admindev.data.DataGenerator.*;
 
 @DisplayName("Общие позитивные тесты. Smoke tests.")
-public class CommonPositiveTests extends TestBase{
+public class CommonPositiveTests extends TestBase {
 
     @Test
     @Feature("Authorization")
@@ -129,7 +130,7 @@ public class CommonPositiveTests extends TestBase{
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200EmptyStringBody());
-        Response response = CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
+        CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
     }
 
     @Test
@@ -186,7 +187,7 @@ public class CommonPositiveTests extends TestBase{
         RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
 
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200EmptyStringBody());
-        Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
+        CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
 
     }
     @Test

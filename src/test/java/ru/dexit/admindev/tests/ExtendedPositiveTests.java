@@ -1,4 +1,4 @@
-package ru.dexit.admindev;
+package ru.dexit.admindev.tests;
 
 import io.qameta.allure.*;
 import io.restassured.response.Response;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.assertions.AssertionsEmployee;
 import ru.dexit.admindev.assertions.AssertionsRole;
 import ru.dexit.admindev.data.DataGenerator;
@@ -28,7 +29,7 @@ import static ru.dexit.admindev.data.DataGenerator.engLetters;
 import static ru.dexit.admindev.data.DataGenerator.generateRandomString;
 
 @DisplayName("Расширенные позитивные тесты")
-public class ExtendedPositiveTests extends TestBase{
+public class ExtendedPositiveTests extends TestBase {
 
     @Epic("Employee")
     @Story("Создание сотрудника")

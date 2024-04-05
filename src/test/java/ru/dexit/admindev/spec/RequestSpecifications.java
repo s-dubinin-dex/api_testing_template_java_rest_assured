@@ -3,6 +3,7 @@ package ru.dexit.admindev.spec;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.helpers.CustomAllureListener;
 
 public class RequestSpecifications extends TestBase {
@@ -25,6 +26,20 @@ public class RequestSpecifications extends TestBase {
 
         return basicRequestSpecification()
                 .contentType("application/json");
+
+    }
+    public static RequestSpecification basicRequestSpecificationWithEmptyToken(){
+
+        return basicRequestSpecification()
+                .contentType("application/json")
+                .header("Authorization", "");
+
+    }
+    public static RequestSpecification basicRequestSpecificationWithInvalidToken(){
+
+        return basicRequestSpecification()
+                .contentType("application/json")
+                .header("Authorization", DataGenerator.generateRandomBearerToken());
 
     }
 }

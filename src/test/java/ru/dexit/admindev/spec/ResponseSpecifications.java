@@ -39,6 +39,22 @@ public class ResponseSpecifications {
                 .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
                 .build();
     }
+    public static ResponseSpecification responseSpec401(){
+        return new ResponseSpecBuilder()
+                .log(LogDetail.STATUS)
+                .expectBody(equalTo(""))
+                .expectStatusCode(SC_UNAUTHORIZED)
+                .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
+                .build();
+    }
+    public static ResponseSpecification responseSpec403(){
+        return new ResponseSpecBuilder()
+                .log(LogDetail.STATUS)
+                .expectBody(equalTo(""))
+                .expectStatusCode(SC_FORBIDDEN)
+                .expectResponseTime(lessThanOrEqualTo(1L), SECONDS)
+                .build();
+    }
     public static ResponseSpecification responseSpec404(){
         return new ResponseSpecBuilder()
                 .log(LogDetail.STATUS)

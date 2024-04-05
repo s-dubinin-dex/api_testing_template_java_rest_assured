@@ -9,8 +9,8 @@ import java.util.List;
 public class ErrorModel {
     public int status;
     public Data data;
-    public String detail;
     public Errors errors;
+    public String detail;
     public String message;
     public String stackTrace;
     public String title;

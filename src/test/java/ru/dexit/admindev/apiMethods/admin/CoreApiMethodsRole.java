@@ -5,7 +5,9 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
+import ru.dexit.admindev.models.role.AddRoleRequestModelNotNull;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
+import ru.dexit.admindev.models.role.UpdateRoleRequestModelNotNull;
 import ru.dexit.admindev.spec.SpecificationsServer;
 
 public class CoreApiMethodsRole extends TestBase {
@@ -13,6 +15,19 @@ public class CoreApiMethodsRole extends TestBase {
 
     @Step("Создание роли")
     public static Response addRole(AddRoleRequestModel body){
+
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
+                .body(body)
+                .when()
+                .post("/Role/AddRole")
+                .andReturn();
+
+    }
+
+    @Step("Создание роли")
+    public static Response addRole(AddRoleRequestModelNotNull body){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);
 
@@ -37,6 +52,19 @@ public class CoreApiMethodsRole extends TestBase {
 
     }
 
+    @Step("Изменение роли")
+    public static Response updateRole(UpdateRoleRequestModelNotNull body){
+
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
+                .body(body)
+                .when()
+                .put("/Role/UpdateRole")
+                .andReturn();
+
+    }
+
     @Step("Удаление роли")
     public static Response deleteRole(String id){
 
@@ -44,6 +72,17 @@ public class CoreApiMethodsRole extends TestBase {
 
         return RestAssured.given()
                 .queryParam("id", id)
+                .when()
+                .delete("/Role/DeleteRole")
+                .andReturn();
+    }
+
+    @Step("Удаление роли")
+    public static Response deleteRole(){
+
+        SpecificationsServer.setBaseUrl(URL_ADMIN);
+
+        return RestAssured.given()
                 .when()
                 .delete("/Role/DeleteRole")
                 .andReturn();
