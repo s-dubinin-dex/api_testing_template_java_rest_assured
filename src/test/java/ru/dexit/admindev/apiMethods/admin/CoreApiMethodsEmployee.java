@@ -27,7 +27,7 @@ public class CoreApiMethodsEmployee extends TestBase {
 
     }
 
-    @Step("Создание сотрудника")
+    @Step("Создание сотрудника c неполной моделью данных")
     public static Response addEmployee(AddEmployeeRequestModelNotNull body){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);
@@ -52,7 +52,7 @@ public class CoreApiMethodsEmployee extends TestBase {
                 .andReturn();
     }
 
-    @Step("Обновление данных сотрудника")
+    @Step("Обновление данных сотрудника c неполной моделью данных")
     public static Response updateEmployee(UpdateEmployeeRequestModelNotNull body){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);
@@ -76,7 +76,7 @@ public class CoreApiMethodsEmployee extends TestBase {
                 .andReturn();
     }
 
-    @Step("Генерация нового приглашения с новым токеном активации")
+    @Step("Генерация нового приглашения с новым токеном активации без тела запроса")
     public static Response updateInvitation(){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);
@@ -122,7 +122,7 @@ public class CoreApiMethodsEmployee extends TestBase {
                 .andReturn();
     }
 
-    @Step("Удаление сотрудника")
+    @Step("Удаление сотрудника без тела запроса")
     public static Response deleteEmployee(){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);

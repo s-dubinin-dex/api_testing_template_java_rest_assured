@@ -26,7 +26,7 @@ public class CoreApiMethodsRole extends TestBase {
 
     }
 
-    @Step("Создание роли")
+    @Step("Создание роли c неполной моделью данных")
     public static Response addRole(AddRoleRequestModelNotNull body){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);
@@ -52,7 +52,7 @@ public class CoreApiMethodsRole extends TestBase {
 
     }
 
-    @Step("Изменение роли")
+    @Step("Изменение роли c неполной моделью данных")
     public static Response updateRole(UpdateRoleRequestModelNotNull body){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);
@@ -77,7 +77,7 @@ public class CoreApiMethodsRole extends TestBase {
                 .andReturn();
     }
 
-    @Step("Удаление роли")
+    @Step("Удаление роли без тела запроса")
     public static Response deleteRole(){
 
         SpecificationsServer.setBaseUrl(URL_ADMIN);

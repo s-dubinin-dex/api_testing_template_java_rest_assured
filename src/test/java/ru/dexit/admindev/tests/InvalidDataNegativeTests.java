@@ -864,7 +864,7 @@ public class InvalidDataNegativeTests extends TestBase {
     }
 
     @Test
-    @Feature("Employee")
+    @Feature("Role")
     @Story("Удаление роли")
     @Severity(SeverityLevel.TRIVIAL)
     @DisplayName("Удаление роли с пустым id")
