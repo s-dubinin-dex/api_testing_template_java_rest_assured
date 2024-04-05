@@ -69,7 +69,7 @@ public class ExtendedPositiveTests extends TestBase {
                 .roleId(Role.FULL_WRITE.roleUUID)
                 .email(faker.internet().emailAddress())
                 .build();
-        Response responseFirstEmployee = CoreApiMethodsEmployee.addEmployee(requestBodyFirstEmployee);
+        CoreApiMethodsEmployee.addEmployee(requestBodyFirstEmployee);
 
         AddEmployeeRequestModel requestBodySecondEmployee = AddEmployeeRequestModel.builder()
                 .name(name)
@@ -275,7 +275,7 @@ public class ExtendedPositiveTests extends TestBase {
         EmployeeCommonResponseModel responseBodyCreation = responseCreation.as(EmployeeCommonResponseModel.class);
 
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200EmptyStringBody());
-        Response response = CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
+        CoreApiMethodsEmployee.deleteEmployee(responseBodyCreation.id);
     }
 
     @Feature("Role")
@@ -495,7 +495,7 @@ public class ExtendedPositiveTests extends TestBase {
         RoleCommonResponseModel responseBodyForAddingRole = responseForAddingRole.as(RoleCommonResponseModel.class);
 
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpecOK200EmptyStringBody());
-        Response response = CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
+        CoreApiMethodsRole.deleteRole(responseBodyForAddingRole.id);
     }
 
     @Test

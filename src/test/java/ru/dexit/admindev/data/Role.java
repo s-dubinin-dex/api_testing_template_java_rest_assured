@@ -9,8 +9,8 @@ public enum Role {
     public final String roleName;
     public final String roleUUID;
 
-    Role(String role, String roleUUID) {
-        this.roleName = role;
+    Role(String roleName, String roleUUID) {
+        this.roleName = roleName;
         this.roleUUID = roleUUID;
     }
 
@@ -25,9 +25,4 @@ public enum Role {
         return null;
     }
 
-    public static void main(String[] args) {
-        for (Role role: Role.values()){
-            System.out.println(role.roleName);
-        }
-    }
 }

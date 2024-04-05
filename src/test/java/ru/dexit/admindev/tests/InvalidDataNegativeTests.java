@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import ru.dexit.admindev.TestBase;
 import ru.dexit.admindev.apiMethods.admin.CoreApiMethodsEmployee;
 import ru.dexit.admindev.apiMethods.admin.CoreApiMethodsRole;
-import ru.dexit.admindev.assertions.AssertionsRole;
 import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.data.Role;
 import ru.dexit.admindev.models.employee.*;
