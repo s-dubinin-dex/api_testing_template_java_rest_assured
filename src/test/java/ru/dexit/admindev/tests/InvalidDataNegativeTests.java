@@ -19,7 +19,7 @@ import ru.dexit.admindev.spec.SpecificationsServer;
 import static org.assertj.core.api.Assertions.*;
 import static ru.dexit.admindev.helpers.ErrorDescription.*;
 
-@DisplayName("Негативные тесты с валидными данными (по типу данных)")
+@DisplayName("Негативные тесты с невалидными данными (по типу данных)")
 public class InvalidDataNegativeTests extends TestBase {
 
     // TODO: Переписать DisplayName и Description на те, которые подробно описывают финальный результат

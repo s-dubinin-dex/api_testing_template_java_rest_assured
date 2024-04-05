@@ -899,7 +899,7 @@ public class ValidDataNegativeTests extends TestBase {
                 .email(faker.internet().emailAddress())
                 .build();
 
-        Response responseForEmployeeCreation = CoreApiMethodsEmployee.addEmployee(requestBodyForEmployeeCreation);
+        CoreApiMethodsEmployee.addEmployee(requestBodyForEmployeeCreation);
 
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec409());
         Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(responseBodyForRoleCreation.id);
