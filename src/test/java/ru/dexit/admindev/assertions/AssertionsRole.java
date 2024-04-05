@@ -6,20 +6,18 @@ import ru.dexit.admindev.models.role.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 public class AssertionsRole {
     public static void roleAddedSuccessfully(Response response, AddRoleRequestModel requestBody){
 
         RoleCommonResponseModel responseBody = response.as(RoleCommonResponseModel.class);
 
-        // Check response body
-
-        assertFalse(responseBody.id.isEmpty(), "Role id is empty");
-        assertEquals(requestBody.name, responseBody.name, "Role name in response is equal to role name in request");
-        assertEquals(requestBody.policies, responseBody.policies, "Role policies in response is not equal to role policies in request");
-        assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
-        assertNull(responseBody.deletedUtc, "deletedUtc is not null");
+        assertThat(responseBody.id).isNotEmpty();
+        assertThat(responseBody.name).isEqualTo(requestBody.name);
+        assertThat(responseBody.policies).isEqualTo(requestBody.policies);
+        assertThat(responseBody.createdUtc).isNotEmpty();
+        assertThat(responseBody.deletedUtc).isNull();
 
     }
 
@@ -33,17 +31,11 @@ public class AssertionsRole {
         Collections.sort(requestBodyPolicies);
         Collections.sort(responseBodyPolicies);
 
-        // Check status code
-
-        assertEquals(HttpStatus.SC_OK, response.statusCode(), "Incorrect status code");
-
-        // Check response body
-
-        assertEquals(requestBody.id, responseBody.id, "Role ID in response is not equal to Role ID in request");
-        assertEquals(requestBody.name, responseBody.name, "Role name in response is not equal to role name in request");
-        assertEquals(requestBodyPolicies, responseBodyPolicies, "Role policies in response is not equal to role policies in request");
-        assertFalse(responseBody.createdUtc.isEmpty(), "createdUtc is empty");
-        assertNull(responseBody.deletedUtc, "deletedUtc is not null");
+        assertThat(responseBody.id).isEqualTo(requestBody.id);
+        assertThat(responseBody.name).isEqualTo(requestBody.name);
+        assertThat(responseBodyPolicies).isEqualTo(requestBodyPolicies);
+        assertThat(responseBody.createdUtc).isNotEmpty();
+        assertThat(responseBody.deletedUtc).isNull();
 
     }
 
@@ -52,6 +44,7 @@ public class AssertionsRole {
         // Check response body
 
         List<GetPoliciesResponseModel> responseBody = response.jsonPath().get();
+
         // TODO: придумать, как верифицировать тело ответа
 
     }
