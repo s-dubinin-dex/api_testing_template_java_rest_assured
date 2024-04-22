@@ -75,7 +75,7 @@ public class CommonPositiveTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(faker.name().fullName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
 

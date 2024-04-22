@@ -44,7 +44,7 @@ public class ExtendedPositiveTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
@@ -66,14 +66,14 @@ public class ExtendedPositiveTests extends TestBase {
 
         AddEmployeeRequestModel requestBodyFirstEmployee = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
         CoreApiMethodsEmployee.addEmployee(requestBodyFirstEmployee);
 
         AddEmployeeRequestModel requestBodySecondEmployee = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
         Response responseSecondEmployee = CoreApiMethodsEmployee.addEmployee(requestBodySecondEmployee);
@@ -116,7 +116,7 @@ public class ExtendedPositiveTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().fullName())
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(email)
                 .build();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
@@ -141,7 +141,7 @@ public class ExtendedPositiveTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(faker.name().fullName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
 
@@ -166,7 +166,7 @@ public class ExtendedPositiveTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyCreation.id)
                 .name(name)
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
 

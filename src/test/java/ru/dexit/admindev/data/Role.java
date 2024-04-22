@@ -6,14 +6,21 @@ public enum Role {
     FULL_READ("Test FullRead Role", "d2ee530d-8384-439a-8486-3e960118084b"),
     NO_RIGHTS("Нет прав", "4e964e99-95b9-424a-bd20-7e9da61d2aef");
 
-    public final String roleName;
-    public final String roleUUID;
+    private final String roleName;
+    private final String roleUUID;
 
     Role(String roleName, String roleUUID) {
         this.roleName = roleName;
         this.roleUUID = roleUUID;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public String getRoleUUID() {
+        return roleUUID;
+    }
 
     public static Role findRoleById(String id){
 

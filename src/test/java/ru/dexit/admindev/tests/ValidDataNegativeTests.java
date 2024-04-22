@@ -44,7 +44,7 @@ public class ValidDataNegativeTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name("")
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
 
@@ -70,7 +70,7 @@ public class ValidDataNegativeTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(name)
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
 
@@ -117,7 +117,7 @@ public class ValidDataNegativeTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_RIGHTS.roleUUID)
+                .roleId(Role.FULL_RIGHTS.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
 
@@ -166,7 +166,7 @@ public class ValidDataNegativeTests extends TestBase {
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec409());
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .email(responseCreationModel.email)
                 .build();
 
@@ -189,7 +189,7 @@ public class ValidDataNegativeTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .email(email)
                 .build();
 
@@ -213,7 +213,7 @@ public class ValidDataNegativeTests extends TestBase {
 
         AddEmployeeRequestModel requestBody = AddEmployeeRequestModel.builder()
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .email(email)
                 .build();
 
@@ -238,7 +238,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(id)
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -260,7 +260,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(faker.internet().uuid())
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -281,7 +281,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(Employee.ADMINISTRATOR.id)
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -308,7 +308,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name("")
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -337,7 +337,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name(name)
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -394,7 +394,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(responseBodyForCreation.id)
                 .name(responseBodyForCreation.name)
-                .roleId(Role.FULL_RIGHTS.roleUUID)
+                .roleId(Role.FULL_RIGHTS.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -848,7 +848,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession() + DataGenerator.getSalt())
                 .policies(DataGenerator.getDefaultPolicies())
-                .id(Role.FULL_RIGHTS.roleUUID)
+                .id(Role.FULL_RIGHTS.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsRole.updateRole(requestBody);
@@ -870,7 +870,7 @@ public class ValidDataNegativeTests extends TestBase {
         UpdateRoleRequestModel requestBody = UpdateRoleRequestModel.builder()
                 .name(faker.company().profession() + DataGenerator.getSalt())
                 .policies(DataGenerator.getDefaultPolicies())
-                .id(Role.NO_RIGHTS.roleUUID)
+                .id(Role.NO_RIGHTS.getRoleUUID())
                 .build();
 
         Response response = CoreApiMethodsRole.updateRole(requestBody);
@@ -952,7 +952,7 @@ public class ValidDataNegativeTests extends TestBase {
         SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
-        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.FULL_RIGHTS.roleUUID);
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.FULL_RIGHTS.getRoleUUID());
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);
 
         assertThat(responseBody.getMessage()).isEqualTo(userWithSuperAdminRoleIsReadOnly);
@@ -968,7 +968,7 @@ public class ValidDataNegativeTests extends TestBase {
         SpecificationsServer.installRequestSpecification(RequestSpecifications.basicRequestSpecificationWithAuthorization());
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec412());
 
-        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.NO_RIGHTS.roleUUID);
+        Response responseForRoleDeleting = CoreApiMethodsRole.deleteRole(Role.NO_RIGHTS.getRoleUUID());
         ErrorModel responseBody = responseForRoleDeleting.as(ErrorModel.class);
 
         assertThat(responseBody.getMessage()).isEqualTo(noAccessRoleIsReadOnly);

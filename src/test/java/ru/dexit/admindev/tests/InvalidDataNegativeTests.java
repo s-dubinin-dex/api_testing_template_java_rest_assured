@@ -77,7 +77,7 @@ public class InvalidDataNegativeTests extends TestBase {
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModelNotNull requestBody = AddEmployeeRequestModelNotNull.builder()
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
@@ -139,7 +139,7 @@ public class InvalidDataNegativeTests extends TestBase {
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         AddEmployeeRequestModelNotNull requestBody = AddEmployeeRequestModelNotNull.builder()
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -162,7 +162,7 @@ public class InvalidDataNegativeTests extends TestBase {
 
         AddEmployeeRequestModelNotNull requestBody = AddEmployeeRequestModelNotNull.builder()
                 .name(faker.name().fullName())
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.addEmployee(requestBody);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -205,7 +205,7 @@ public class InvalidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(faker.internet().uuid())
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -224,7 +224,7 @@ public class InvalidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(faker.internet().uuid())
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -243,7 +243,7 @@ public class InvalidDataNegativeTests extends TestBase {
         UpdateEmployeeRequestModel requestBody = UpdateEmployeeRequestModel.builder()
                 .id(faker.internet().uuid())
                 .name(faker.name().firstName())
-                .roleId(Role.FULL_READ.roleUUID)
+                .roleId(Role.FULL_READ.getRoleUUID())
                 .build();
 
         CoreApiMethodsEmployee.updateEmployee(requestBody);
@@ -261,7 +261,7 @@ public class InvalidDataNegativeTests extends TestBase {
 
         UpdateEmployeeRequestModelNotNull requestBody = UpdateEmployeeRequestModelNotNull.builder()
                 .name(faker.name().fullName())
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -302,7 +302,7 @@ public class InvalidDataNegativeTests extends TestBase {
 
         UpdateEmployeeRequestModelNotNull requestBody = UpdateEmployeeRequestModelNotNull.builder()
                 .id(faker.internet().uuid())
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
         ErrorModel responseBody = response.as(ErrorModel.class);
@@ -361,7 +361,7 @@ public class InvalidDataNegativeTests extends TestBase {
         SpecificationsServer.installResponseSpecification(ResponseSpecifications.responseSpec400());
 
         UpdateEmployeeRequestModelNotNull requestBody = UpdateEmployeeRequestModelNotNull.builder()
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .build();
         Response response = CoreApiMethodsEmployee.updateEmployee(requestBody);
         ErrorModel responseBody = response.as(ErrorModel.class);

@@ -33,7 +33,7 @@ public class DataGenerator {
 
         return AddEmployeeRequestModel.builder()
                 .name(faker.name().fullName())
-                .roleId(Role.FULL_WRITE.roleUUID)
+                .roleId(Role.FULL_WRITE.getRoleUUID())
                 .email(faker.internet().emailAddress())
                 .build();
 
@@ -137,9 +137,9 @@ public class DataGenerator {
 
     public static Stream<Arguments> getValidRoles(){
         return Stream.of(
-                arguments(Role.FULL_WRITE.roleUUID),
-                arguments(Role.FULL_READ.roleUUID),
-                arguments(Role.NO_RIGHTS.roleUUID)
+                arguments(Role.FULL_WRITE.getRoleUUID()),
+                arguments(Role.FULL_READ.getRoleUUID()),
+                arguments(Role.NO_RIGHTS.getRoleUUID())
         );
     }
 
