@@ -1,7 +1,6 @@
 package ru.dexit.admindev.assertions;
 
 import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
 import ru.dexit.admindev.models.role.*;
 
 import java.util.*;
