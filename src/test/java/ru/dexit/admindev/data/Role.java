@@ -1,5 +1,8 @@
 package ru.dexit.admindev.data;
 
+import lombok.Getter;
+
+@Getter
 public enum Role {
     FULL_RIGHTS("Полные права", "8b1ded60-2979-4728-a0f6-eb69f43eb44a"),
     FULL_WRITE("Test FullWrite Role", "b2a142fe-9035-46a5-bd9f-06baf40be2b0"),
@@ -12,14 +15,6 @@ public enum Role {
     Role(String roleName, String roleUUID) {
         this.roleName = roleName;
         this.roleUUID = roleUUID;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public String getRoleUUID() {
-        return roleUUID;
     }
 
     public static Role findRoleById(String id){
