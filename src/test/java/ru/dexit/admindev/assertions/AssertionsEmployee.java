@@ -9,6 +9,7 @@ import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class AssertionsEmployee {
 
@@ -16,14 +17,16 @@ public class AssertionsEmployee {
 
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
 
-        assertThat(responseBody.id).isNotEmpty();
-        assertThat(responseBody.name).isEqualTo(requestBody.name);
-        assertThat(responseBody.createdUtc).isNotEmpty();
-        assertThat(responseBody.deletedUtc).isNull();
-        assertThat(responseBody.roleId).isEqualTo(requestBody.roleId);
-        assertThat(responseBody.role).isEqualTo(Role.findRoleById(requestBody.roleId).roleName);
-        assertThat(responseBody.email).isEqualTo(requestBody.email.toLowerCase());
-        assertThat(responseBody.activationDate).isNull();
+        assertAll(
+                () -> assertThat(responseBody.id).isNotEmpty(),
+                () -> assertThat(responseBody.name).isEqualTo(requestBody.name),
+                () -> assertThat(responseBody.createdUtc).isNotEmpty(),
+                () -> assertThat(responseBody.deletedUtc).isNull(),
+                () -> assertThat(responseBody.roleId).isEqualTo(requestBody.roleId),
+                () -> assertThat(responseBody.role).isEqualTo(Role.findRoleById(requestBody.roleId).getRoleName()),
+                () -> assertThat(responseBody.email).isEqualTo(requestBody.getEmail().toLowerCase()),
+                () -> assertThat(responseBody.activationDate).isNull()
+        );
 
     }
 
@@ -31,14 +34,16 @@ public class AssertionsEmployee {
 
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
 
-        assertThat(responseBody.id).isEqualTo(requestBody.id);
-        assertThat(responseBody.name).isEqualTo(requestBody.name);
-        assertThat(responseBody.createdUtc).isNotEmpty();
-        assertThat(responseBody.deletedUtc).isNull();
-        assertThat(responseBody.roleId).isEqualTo(requestBody.roleId);
-        assertThat(responseBody.role).isEqualTo(Role.findRoleById(requestBody.roleId).roleName);
-        assertThat(responseBody.email).isEqualTo(responseBodyCreation.email);
-        assertThat(responseBody.activationDate).isNull();
+        assertAll(
+                () -> assertThat(responseBody.id).isEqualTo(requestBody.id),
+                () -> assertThat(responseBody.name).isEqualTo(requestBody.name),
+                () -> assertThat(responseBody.createdUtc).isNotEmpty(),
+                () -> assertThat(responseBody.deletedUtc).isNull(),
+                () -> assertThat(responseBody.roleId).isEqualTo(requestBody.roleId),
+                () -> assertThat(responseBody.role).isEqualTo(Role.findRoleById(requestBody.roleId).getRoleName()),
+                () -> assertThat(responseBody.email).isEqualTo(responseBodyCreation.email),
+                () -> assertThat(responseBody.activationDate).isNull()
+        );
 
     }
 
@@ -46,14 +51,16 @@ public class AssertionsEmployee {
 
         EmployeeCommonResponseModel responseBody = response.body().as(EmployeeCommonResponseModel.class);
 
-        assertThat(responseBody.id).isEqualTo(responseBodyCreation.id);
-        assertThat(responseBody.name).isEqualTo(responseBodyCreation.name);
-        assertThat(responseBody.createdUtc).isNotEmpty();
-        assertThat(responseBody.deletedUtc).isNull();
-        assertThat(responseBody.roleId).isEqualTo(responseBodyCreation.roleId);
-        assertThat(responseBody.role).isEqualTo(Role.findRoleById(responseBodyCreation.roleId).roleName);
-        assertThat(responseBody.email).isEqualTo(responseBodyCreation.email);
-        assertThat(responseBody.activationDate).isNull();
+        assertAll(
+                () -> assertThat(responseBody.id).isEqualTo(responseBodyCreation.id),
+                () -> assertThat(responseBody.name).isEqualTo(responseBodyCreation.name),
+                () -> assertThat(responseBody.createdUtc).isNotEmpty(),
+                () -> assertThat(responseBody.deletedUtc).isNull(),
+                () -> assertThat(responseBody.roleId).isEqualTo(responseBodyCreation.roleId),
+                () -> assertThat(responseBody.role).isEqualTo(Role.findRoleById(responseBodyCreation.roleId).getRoleName()),
+                () -> assertThat(responseBody.email).isEqualTo(responseBodyCreation.email),
+                () -> assertThat(responseBody.activationDate).isNull()
+        );
 
     }
 

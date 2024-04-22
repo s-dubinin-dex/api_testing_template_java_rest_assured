@@ -7,17 +7,20 @@ import ru.dexit.admindev.models.role.*;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class AssertionsRole {
     public static void roleAddedSuccessfully(Response response, AddRoleRequestModel requestBody){
 
         RoleCommonResponseModel responseBody = response.as(RoleCommonResponseModel.class);
 
-        assertThat(responseBody.id).isNotEmpty();
-        assertThat(responseBody.name).isEqualTo(requestBody.name);
-        assertThat(responseBody.policies).isEqualTo(requestBody.policies);
-        assertThat(responseBody.createdUtc).isNotEmpty();
-        assertThat(responseBody.deletedUtc).isNull();
+        assertAll(
+                () -> assertThat(responseBody.id).isNotEmpty(),
+                () -> assertThat(responseBody.name).isEqualTo(requestBody.name),
+                () -> assertThat(responseBody.policies).isEqualTo(requestBody.policies),
+                () -> assertThat(responseBody.createdUtc).isNotEmpty(),
+                () -> assertThat(responseBody.deletedUtc).isNull()
+        );
 
     }
 
@@ -31,11 +34,15 @@ public class AssertionsRole {
         Collections.sort(requestBodyPolicies);
         Collections.sort(responseBodyPolicies);
 
-        assertThat(responseBody.id).isEqualTo(requestBody.id);
-        assertThat(responseBody.name).isEqualTo(requestBody.name);
-        assertThat(responseBodyPolicies).isEqualTo(requestBodyPolicies);
-        assertThat(responseBody.createdUtc).isNotEmpty();
-        assertThat(responseBody.deletedUtc).isNull();
+        assertAll(
+                () -> assertThat(responseBody.id).isEqualTo(requestBody.id),
+                () -> assertThat(responseBody.name).isEqualTo(requestBody.name),
+                () -> assertThat(responseBodyPolicies).isEqualTo(requestBodyPolicies),
+                () -> assertThat(responseBody.createdUtc).isNotEmpty(),
+                () -> assertThat(responseBody.deletedUtc).isNull()
+        );
+
+
 
     }
 
