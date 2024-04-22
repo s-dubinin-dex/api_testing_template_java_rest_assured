@@ -2,14 +2,14 @@ package ru.dexit.admindev.apiMethods.identity;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.UrlBase;
 import ru.dexit.admindev.helpers.CustomAllureListener;
 import ru.dexit.admindev.spec.RequestSpecifications;
 import ru.dexit.admindev.spec.SpecificationsServer;
 
 import static io.restassured.RestAssured.given;
 
-public class CoreApiMethodsIdentity extends TestBase {
+public class CoreApiMethodsIdentity extends UrlBase {
 
     @Step("Авторизация и получение токена")
     public static Response connectToken(){

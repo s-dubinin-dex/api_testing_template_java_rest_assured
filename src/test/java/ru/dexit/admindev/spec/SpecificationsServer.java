@@ -3,9 +3,8 @@ package ru.dexit.admindev.spec;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import ru.dexit.admindev.TestBase;
 
-public class SpecificationsServer extends TestBase {
+public class SpecificationsServer{
 
     public static void installSpecification(RequestSpecification requestSpecification, ResponseSpecification responseSpecification){
         RestAssured.requestSpecification = requestSpecification;

@@ -3,14 +3,14 @@ package ru.dexit.admindev.apiMethods.admin;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.UrlBase;
 import ru.dexit.admindev.models.role.AddRoleRequestModel;
 import ru.dexit.admindev.models.role.AddRoleRequestModelNotNull;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModel;
 import ru.dexit.admindev.models.role.UpdateRoleRequestModelNotNull;
 import ru.dexit.admindev.spec.SpecificationsServer;
 
-public class CoreApiMethodsRole extends TestBase {
+public class CoreApiMethodsRole extends UrlBase {
     // TODO: Вынести SetBaseUrl в базовый метод
 
     @Step("Создание роли")

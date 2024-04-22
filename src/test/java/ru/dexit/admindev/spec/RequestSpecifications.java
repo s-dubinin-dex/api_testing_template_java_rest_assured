@@ -2,11 +2,11 @@ package ru.dexit.admindev.spec;
 
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
-import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.UrlBase;
 import ru.dexit.admindev.data.DataGenerator;
 import ru.dexit.admindev.helpers.CustomAllureListener;
 
-public class RequestSpecifications extends TestBase {
+public class RequestSpecifications extends UrlBase {
 
     public static RequestSpecification basicRequestSpecification(){
 

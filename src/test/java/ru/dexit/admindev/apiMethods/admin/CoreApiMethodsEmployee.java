@@ -3,14 +3,14 @@ package ru.dexit.admindev.apiMethods.admin;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import ru.dexit.admindev.TestBase;
+import ru.dexit.admindev.UrlBase;
 import ru.dexit.admindev.models.employee.AddEmployeeRequestModel;
 import ru.dexit.admindev.models.employee.AddEmployeeRequestModelNotNull;
 import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModel;
 import ru.dexit.admindev.models.employee.UpdateEmployeeRequestModelNotNull;
 import ru.dexit.admindev.spec.SpecificationsServer;
 
-public class CoreApiMethodsEmployee extends TestBase {
+public class CoreApiMethodsEmployee extends UrlBase {
 
     // TODO: Вынести SetBaseUrl в базовый метод
 
