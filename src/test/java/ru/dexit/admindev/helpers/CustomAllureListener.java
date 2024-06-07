@@ -1,4 +1,4 @@
-package ru.dex_it.k3s.admin_dev.helpers;
+package ru.dexit.admindev.helpers;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 
